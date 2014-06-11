@@ -1,0 +1,10 @@
+C:\Users\davide.canale\Desktop\operazioni vettori\Mate\Tryer\bin\Debug\Tryer.exe.config
+C:\Users\davide.canale\Desktop\operazioni vettori\Mate\Tryer\bin\Debug\Tryer.exe
+C:\Users\davide.canale\Desktop\operazioni vettori\Mate\Tryer\bin\Debug\Tryer.pdb
+C:\Users\davide.canale\Desktop\operazioni vettori\Mate\Tryer\obj\Debug\Tryer.exe
+C:\Users\davide.canale\Desktop\operazioni vettori\Mate\Tryer\obj\Debug\Tryer.pdb
+C:\Users\davide.canale\Desktop\operazioni vettori\Mate\Tryer\bin\Debug\General.dll
+C:\Users\davide.canale\Desktop\operazioni vettori\Mate\Tryer\bin\Debug\Mate.dll
+C:\Users\davide.canale\Desktop\operazioni vettori\Mate\Tryer\bin\Debug\General.pdb
+C:\Users\davide.canale\Desktop\operazioni vettori\Mate\Tryer\bin\Debug\Mate.pdb
+C:\Users\davide.canale\Desktop\operazioni vettori\Mate\Tryer\obj\Debug\Tryer.csprojResolveAssemblyReference.cache

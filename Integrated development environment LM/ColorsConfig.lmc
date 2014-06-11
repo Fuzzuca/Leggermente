@@ -1,0 +1,37 @@
+#Per i commenti usare '#' solo a inizio linea
+#altrimenti usare la configurazione:
+#	paroladacolorare=rosso;verde;blu 
+ 
+ 
+#Controlli Condizionali
+ 
+se=255;204;51
+altrimenti=255;204;51
+controlla=255;204;51
+ripeti=255;204;51
+volte=255;204;51
+quando=255;204;51
+ 
+#Parole Chiave
+ 
+aggiungi=255;51;102
+pacchetto=0;46;184
+crea=245;184;0
+vettore=245;184;0
+cambia=245;184;0
+scambia=245;184;0
+a=255;51;204
+con=255;51;204
+di=255;51;204
+per=255;51;204
+ 
+#Parole chiave
+ 
+maggiore=224;160;64
+minore=224;160;64
+uguale=224;160;64
+diverso=224;160;64
+non=224;160;64
+
+^\|.+?\|=173;255;47;16
+^#\s?\w+\s?=191;0;255;0

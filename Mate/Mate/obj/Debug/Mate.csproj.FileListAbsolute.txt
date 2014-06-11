@@ -1,0 +1,7 @@
+C:\Users\davide.canale\Desktop\operazioni vettori\Mate\Mate\bin\Debug\Mate.dll
+C:\Users\davide.canale\Desktop\operazioni vettori\Mate\Mate\bin\Debug\Mate.pdb
+C:\Users\davide.canale\Desktop\operazioni vettori\Mate\Mate\obj\Debug\Mate.csprojResolveAssemblyReference.cache
+C:\Users\davide.canale\Desktop\operazioni vettori\Mate\Mate\obj\Debug\Mate.dll
+C:\Users\davide.canale\Desktop\operazioni vettori\Mate\Mate\obj\Debug\Mate.pdb
+C:\Users\davide.canale\Desktop\operazioni vettori\Mate\Mate\bin\Debug\General.dll
+C:\Users\davide.canale\Desktop\operazioni vettori\Mate\Mate\bin\Debug\General.pdb

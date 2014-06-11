@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="Leggermente.Translator.Function" Collapsed="true">
+    <Position X="3" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAABEgAAAAAQAAAAEAAAAAIgBAAAAAAI=</HashCode>
+      <FileName>Class\CodeObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Leggermente.Translator.Package" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAIEggACAAYAAAAFBAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Class\Package.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Leggermente.Translator.FunctionCollection" Collapsed="true">
+    <Position X="4.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAEAAAEAAAAAEKAAABAQAAAAAEAAAKAAAAAEQAAA=</HashCode>
+      <FileName>Class\CodeObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Leggermente.Translator.CodeLine" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAEgAAokAAAABAAAAAAAAAQAAAgAAA=</HashCode>
+      <FileName>Class\CodeObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Leggermente.Translator.CodeLineCollection" Collapsed="true">
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACIAAEAAAAAAAAAEKAAgDAQAAAAAAAAAKAEAQAEQAEA=</HashCode>
+      <FileName>Class\CodeObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Leggermente.Translator.PackageCollection" Collapsed="true">
+    <Position X="10" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAEAAAAAAAAAEKAAABAQAAAAAgAAAKAAACAEQAgA=</HashCode>
+      <FileName>Class\Package.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Leggermente.Translator.FileINI" Collapsed="true">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAIEgAACAAAAAACAAIQAAAAAAQAAAAA=</HashCode>
+      <FileName>Class\IoObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Leggermente.Translator.Serializzator" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACBAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Class\IoObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Leggermente.Translator.ZipManager" Collapsed="true">
+    <Position X="6.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAEgAAAAQAAAAAAAIEAAAAAAAAAAAA=</HashCode>
+      <FileName>Class\IoObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Leggermente.Translator.UnzipObject" Collapsed="true">
+    <Position X="10" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAgAAAAAAAAAEiAgEAAQAAAAAAIAAAAAAAAAAEAA=</HashCode>
+      <FileName>Class\IoObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Leggermente.Translator.LogManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAKAABAAAAAEAAAEgQAAABAAAAAAAIAAAAAAAAACCAA=</HashCode>
+      <FileName>Class\LogMessage.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Leggermente.Translator.ParserFunction" Collapsed="true">
+    <Position X="3" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BKAAIAAEAAAAwAAAEAIAgAAAAkAAAAAAAIAAAABAQAI=</HashCode>
+      <FileName>Class\ParserObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Leggermente.Translator.Translator" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAgAAAAAAAQAAAAAAAAAAAAAAGAAAAAAA=</HashCode>
+      <FileName>Translator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Leggermente.Translator.CodeCleaner" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAIAAAAQAAAAAwAAAAAAAAQAAAAAAAAIACAAgAAAA=</HashCode>
+      <FileName>Class\CodeOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Leggermente.Translator.FunctionSection" Collapsed="true">
+    <Position X="6.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAgAAAAAAAAgEgQAAAAIAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Class\TranslationObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Leggermente.Translator.SectionCollection" Collapsed="true">
+    <Position X="6.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACIAAEAAAAAAAAIEqAAgBAQAAAAAAIAAKAEAAAEQAAA=</HashCode>
+      <FileName>Class\TranslationObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Leggermente.Translator.CodeImage" Collapsed="true">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAABAQAAAAQAAAAAAEAAAgAAQAAAIAAAAA=</HashCode>
+      <FileName>Class\TranslationObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Leggermente.Translator.ResultCode" Collapsed="true">
+    <Position X="4.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgABABAAAAAAAAAAUAAAAEAAAIAAAAAAAAAAABCAAA=</HashCode>
+      <FileName>Class\TranslationObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Leggermente.Translator.Variable" Collapsed="true">
+    <Position X="3" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAgBAAAAAAAAE6BWACgQAAAAFAKAAgQAgAAAADzI=</HashCode>
+      <FileName>Class\CodeObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Leggermente.Translator.VariableCollection" Collapsed="true">
+    <Position X="4.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAEAAQAAAAAAUqAAABAQAAAAAAIAAKAAAAAEQAAA=</HashCode>
+      <FileName>Class\CodeObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Leggermente.Translator.CodeIndex" Collapsed="true">
+    <Position X="3" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAABAAEAAAAEAAAAAAAA=</HashCode>
+      <FileName>Class\CodeObjects.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="Leggermente.Translator.ITraslator" Collapsed="true">
+    <Position X="4.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAAAAAAA=</HashCode>
+      <FileName>Class\Interfaces.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Leggermente.Translator.ILogError" Collapsed="true">
+    <Position X="3" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Class\Interfaces.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Leggermente.Translator.CodeType" Collapsed="true">
+    <Position X="3" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Class\Interfaces.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Leggermente.Translator.LogType" Collapsed="true">
+    <Position X="4.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAABAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Class\LogMessage.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Leggermente.Translator.ValueType" Collapsed="true">
+    <Position X="6.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAQEAAAAAAAAAAAAAAAEIAAAAAAAA=</HashCode>
+      <FileName>Class\CodeObjects.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Leggermente.Translator.VariableType" Collapsed="true">
+    <Position X="8.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAYAAAAAAAA=</HashCode>
+      <FileName>Class\ParserObject.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Delegate Name="Leggermente.Translator.CriticalErrorHandler" Collapsed="true">
+    <Position X="3" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAQAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Class\LogMessage.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Leggermente.Translator.OperationErrorHandler" Collapsed="true">
+    <Position X="6.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAABAAAAAAAAAAAAAAAABAIAAAAAAAAAA=</HashCode>
+      <FileName>Class\CodeObjects.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Leggermente.Translator.DifferentTypeErrorHandler" Collapsed="true">
+    <Position X="4.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAACAAAAAAAAAAAAEAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Class\CodeObjects.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

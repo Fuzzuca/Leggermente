@@ -1,0 +1,4 @@
+C:\Users\davide.canale\Desktop\operazioni vettori\Mate\General\bin\Debug\General.dll
+C:\Users\davide.canale\Desktop\operazioni vettori\Mate\General\bin\Debug\General.pdb
+C:\Users\davide.canale\Desktop\operazioni vettori\Mate\General\obj\Debug\General.dll
+C:\Users\davide.canale\Desktop\operazioni vettori\Mate\General\obj\Debug\General.pdb

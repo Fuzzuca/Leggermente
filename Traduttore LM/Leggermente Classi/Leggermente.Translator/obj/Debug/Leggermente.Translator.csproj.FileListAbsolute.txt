@@ -1,0 +1,6 @@
+C:\Users\davide.canale\Downloads\Leggermente-master\Leggermente-master\Traduttore LM\Leggermente Classi\Leggermente.Translator\bin\Debug\Leggermente.Translator.dll
+C:\Users\davide.canale\Downloads\Leggermente-master\Leggermente-master\Traduttore LM\Leggermente Classi\Leggermente.Translator\bin\Debug\Leggermente.Translator.pdb
+C:\Users\davide.canale\Downloads\Leggermente-master\Leggermente-master\Traduttore LM\Leggermente Classi\Leggermente.Translator\bin\Debug\Ionic.Zip.dll
+C:\Users\davide.canale\Downloads\Leggermente-master\Leggermente-master\Traduttore LM\Leggermente Classi\Leggermente.Translator\obj\Debug\Leggermente.Translator.csprojResolveAssemblyReference.cache
+C:\Users\davide.canale\Downloads\Leggermente-master\Leggermente-master\Traduttore LM\Leggermente Classi\Leggermente.Translator\obj\Debug\Leggermente.Translator.dll
+C:\Users\davide.canale\Downloads\Leggermente-master\Leggermente-master\Traduttore LM\Leggermente Classi\Leggermente.Translator\obj\Debug\Leggermente.Translator.pdb
