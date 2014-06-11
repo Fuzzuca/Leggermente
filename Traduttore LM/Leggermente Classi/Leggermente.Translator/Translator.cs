@@ -54,10 +54,20 @@ namespace Leggermente.Translator
             CodeImage code = CodeImage.CreateCodeImage(Code, pc, type, lm);
             ResultCode result = new ResultCode();
 
-            for (int i = 0; i < pc.Count; i++) result.AddInclude(pc[i].Name, lm);
+            for (int i = 0; i < code.Package.Count; i++) result.AddInclude(code.Package[i].Name, lm);
+
+            int general = pc.FirstIndexOf("GENERAL");
+            if (general < 0) lm.Add("Cannot find the main package for the program execution");
+            else code.Package.Add(pc[general]);
+
             result.AddBlankLine();
+            result.AddLine("namespace Leggermente.Programma{ class Program{", lm);
+
+            WriteConstant(code, result);
             Parsing(code, result);
 
+            result.AddBlankLine();
+            result.AddLine("} }", lm);
             return result;
         }
 
@@ -67,6 +77,18 @@ namespace Leggermente.Translator
             ParserFunction parser = new ParserFunction(ci.Constant, ci.Package, res, lm);
 
             for (int i = 0; i < ci.Section.Count; i++) parser.AnalyzeFunction(ci.Section[i]);
+        }
+
+        public void WriteConstant(CodeImage ci, ResultCode res)
+        {
+            VariableCollection vc = ci.Constant;
+
+            res.AddBlankLine();
+            for (int i = 0; i < vc.Count; i++)
+            {
+                res.AddLine("static const int " + vc[i].Name + " = new Variable(" + vc[i].Name + ", " + vc[i].Value + ");", lm);
+            }
+            res.AddBlankLine();
         }
     }
 }

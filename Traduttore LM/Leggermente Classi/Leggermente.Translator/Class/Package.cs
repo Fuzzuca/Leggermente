@@ -255,32 +255,37 @@ namespace Leggermente.Translator
 
             return count;
         }
-        /// <summary>
-        /// Controlla l'esistenza dell'elemento nella raccolta
-        /// </summary>
-        /// <param name="item">Pacchetto</param>
-        /// <returns>Esistenza dell'elemento</returns>
+
         public bool Exist(Package item)
         {
             return (FirstIndexOf(item) != -1);
+        }
+
+        public int FirstIndexOf(int i, Package item)
+        {
+            return FirstIndexOf(i, item.Name);
+        }
+        public int FirstIndexOf(Package item)
+        {
+            return FirstIndexOf(0, item.Name);
         }
         /// <summary>
         /// Individua la prima ricorrenza dell'oggetto nella raccolta
         /// </summary>
         /// <param name="item">Pacchetto</param>
         /// <returns>Indice della prima ricorrenza</returns>
-        public int FirstIndexOf(Package item)
+        public int FirstIndexOf(string itemName)
         {
-            return FirstIndexOf(0, item);
+            return FirstIndexOf(0, itemName);
         }
         /// <summary>
         /// Infividua la prima ricorrenza dell'oggerro nella raccolta a partire dall'indice
         /// <param name="start">Indice si partenza</param>
         /// <param name="item">Pacchetto</param>
         /// <returns>Indice della prima ricorrenza</returns>
-        public int FirstIndexOf(int start, Package item)
+        public int FirstIndexOf(int start, string itemName)
         {
-            for (int i = start; i < _pcks.Count; i++) if (_pcks[i].Equals(item)) return i;
+            for (int i = start; i < _pcks.Count; i++) if (_pcks[i].Name == itemName) return i;
             return -1;
         }
         /// <summary>

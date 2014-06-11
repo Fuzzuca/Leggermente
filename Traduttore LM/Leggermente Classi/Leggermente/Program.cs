@@ -19,8 +19,9 @@ namespace Leggermente
             //Translator work
             Translator.Translator traduttore = new Translator.Translator();
             string file = File.ReadAllText("../../../../Examples/massimo3.lm", Encoding.UTF8);
-            string[] package = new string[1];
-            package[0] = "../../../../Examples/MATE.lmp";
+            string[] package = new string[2];
+            package[1] = "../../../../Examples/MATE.lmp";
+            package[0] = "../../../../Examples/LEGGERMENTE.lmp";
 
 
 

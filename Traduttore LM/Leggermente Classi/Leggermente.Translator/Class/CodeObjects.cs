@@ -141,7 +141,7 @@ namespace Leggermente.Translator
         /// <param name="lineNumber">Numero di linea del documento</param>
         /// <param name="checkSign">Controlla l'integrita della firma inserita</param>
         /// <returns>Funzione estratta dalla firma, oppure null</returns>
-        static public Function GetFunctionBySign(string sign, LogManager lm, int lineNumber = -1,bool checkSign = true)
+        static public Function GetFunctionBySign(string sign, LogManager lm, int lineNumber = -1, bool checkSign = true)
         {
             if (Regex.Match(sign, @"#(.*)\s*\[", RegexOptions.None).Success)   //Se è una firma in un formato riconosciuto
             {
@@ -231,7 +231,7 @@ namespace Leggermente.Translator
             }
             return ret;
         }
-        
+
         //Metodi
         /// <summary>
         /// Aggiunge una funzione alla raccolta
@@ -499,7 +499,7 @@ namespace Leggermente.Translator
         private CodeLineCollection()
         {
             _cdlns = new List<CodeLine>();
-            _index=0;
+            _index = 0;
         }
 
         //Proprietà
@@ -714,11 +714,11 @@ namespace Leggermente.Translator
         {
             CodeLineCollection cc = new CodeLineCollection();
             string[] line = RawCode.Split('\n');
-            for (int i = 0; i < line.Length; i++) cc.Add( CodeLine.LineExtractor(line[i],LineNumber+i,lm));
+            for (int i = 0; i < line.Length; i++) cc.Add(CodeLine.LineExtractor(line[i], LineNumber + i, lm));
             return cc;
         }
     }
-    #endregion 
+    #endregion
 
     /// <summary>
     /// Indice in un codice
@@ -757,7 +757,7 @@ namespace Leggermente.Translator
             set { _lenght = (value >= 0) ? value : _lenght; }
         }
     }
-    
+
     #region Variables
     /// <summary>
     /// Variabile del linguaggio leggermente
@@ -782,7 +782,7 @@ namespace Leggermente.Translator
             if (VectorNumber >= 0) CreateVector(VectorNumber);
             else ChangeValue(Value);
             name = (Name != null) ? Name : "";
-            CriticalError += new CriticalErrorHandler(Variable_CriticalError);
+            CriticalError += new OperationErrorHandler(Variable_CriticalError);
             DifferentTypeError += new DifferentTypeErrorHandler(Variable_DifferentTypeError);
         }
         private Variable() : this("", "", -1) { }
@@ -840,6 +840,14 @@ namespace Leggermente.Translator
         {
             get { return name; }
         }
+        public int VectLenght
+        {
+            get
+            {
+                if (this.Type == ValueType.Vector) return vect.Length;
+                return -1;
+            }
+        }
 
         //Metodi pubblici
         /// <summary>
@@ -880,13 +888,13 @@ namespace Leggermente.Translator
             this.ChangeValue("");
             this.type = ValueType.Vector;
         }
-        
+
         //Metodi privati (Evitare eccezzioni per la mancata implementazione di eventuali errori)
         private void Variable_DifferentTypeError(string operation, Variable Left, Variable Right, string Message, DateTime When) { }
-        private void Variable_CriticalError(object sender, DateTime when, string message) { }
-        
+        private void Variable_CriticalError(Variable sender, string operation, Variable[] operatedVariable, DateTime When) { }
+
         //Evento
-        public event CriticalErrorHandler CriticalError;
+        public event OperationErrorHandler CriticalError;
         public event DifferentTypeErrorHandler DifferentTypeError;
 
         //Metodi override
@@ -897,7 +905,7 @@ namespace Leggermente.Translator
         /// <returns>Risultato della comparazione</returns>
         public override bool Equals(object obj)
         {
-            return (this.GetType() == obj.GetType() && Equals((UnzipObject)obj));
+            return (this.GetType() == obj.GetType() && Equals((Variable)obj));
         }
         /// <summary>
         /// Permette la comparazione di due istanze della classe
@@ -922,7 +930,7 @@ namespace Leggermente.Translator
                 ret = ret.Remove(ret.Length);
                 return ret + " ]";
             }
-            else ret = name+": "+value;
+            else ret = name + ": " + value;
             return ret;
         }
         /// <summary>
@@ -946,7 +954,10 @@ namespace Leggermente.Translator
                 }
                 else
                 {
-                    left.CriticalError(left, DateTime.Now, "When the system try to translate the numerical variable, something gone wrong");
+                    Variable[] v = new Variable[2];
+                    v[0] = left;
+                    v[1] = right;
+                    left.CriticalError(left, "+", v, DateTime.Now);
                     return new Variable();
                 }
             }
@@ -968,7 +979,10 @@ namespace Leggermente.Translator
                 }
                 else
                 {
-                    left.CriticalError(left, DateTime.Now, "When the system try to translate the numerical variable, something gone wrong");
+                    Variable[] v = new Variable[2];
+                    v[0] = left;
+                    v[1] = right;
+                    left.CriticalError(left, "-", v, DateTime.Now);
                     return new Variable();
                 }
             }
@@ -986,7 +1000,10 @@ namespace Leggermente.Translator
                 }
                 else
                 {
-                    left.CriticalError(left, DateTime.Now, "When the system try to translate the numerical variable, something gone wrong");
+                    Variable[] v = new Variable[2];
+                    v[0] = left;
+                    v[1] = right;
+                    left.CriticalError(left, "*", v, DateTime.Now);
                     return new Variable();
                 }
             }
@@ -1006,13 +1023,19 @@ namespace Leggermente.Translator
                     }
                     else
                     {
-                        left.CriticalError(left, DateTime.Now, "When the system has try to perform a division with 0");
+                        Variable[] v = new Variable[2];
+                        v[0] = left;
+                        v[1] = right;
+                        left.CriticalError(left, "/", v, DateTime.Now);
                         return new Variable();
                     }
                 }
                 else
                 {
-                    left.CriticalError(left, DateTime.Now, "When the system try to translate the numerical variable, something gone wrong");
+                    Variable[] v = new Variable[2];
+                    v[0] = left;
+                    v[1] = right;
+                    left.CriticalError(left, "/", v, DateTime.Now);
                     return new Variable();
                 }
             }
@@ -1030,7 +1053,10 @@ namespace Leggermente.Translator
                 }
                 else
                 {
-                    left.CriticalError(left, DateTime.Now, "When the system try to translate the numerical variable, something gone wrong");
+                    Variable[] v = new Variable[2];
+                    v[0] = left;
+                    v[1] = right;
+                    left.CriticalError(left, "maggiore", v, DateTime.Now);
                     return false;
                 }
             }
@@ -1052,7 +1078,10 @@ namespace Leggermente.Translator
                 }
                 else
                 {
-                    left.CriticalError(left, DateTime.Now, "When the system try to translate the numerical variable, something gone wrong");
+                    Variable[] v = new Variable[2];
+                    v[0] = left;
+                    v[1] = right;
+                    left.CriticalError(left, "minore", v, DateTime.Now);
                     return false;
                 }
             }
@@ -1065,7 +1094,7 @@ namespace Leggermente.Translator
         }
         public static bool operator >=(Variable left, Variable right)
         {
-            return (left == right || left > right) ;
+            return (left == right || left > right);
         }
         public static bool operator <=(Variable left, Variable right)
         {
@@ -1153,7 +1182,7 @@ namespace Leggermente.Translator
             get
             {
                 int i = GetIndexOfName(name);
-                if(i>=0) return this[i];
+                if (i >= 0) return this[i];
                 else return null;
             }
         }
@@ -1166,7 +1195,7 @@ namespace Leggermente.Translator
         /// <returns>Risultato della comparazione</returns>
         public override bool Equals(object obj)
         {
-            return (this.GetType() == obj.GetType() && Equals((UnzipObject)obj));
+            return (this.GetType() == obj.GetType() && Equals((VariableCollection)obj));
         }
         /// <summary>
         /// Permette la comparazione di due istanze della classe
@@ -1198,7 +1227,7 @@ namespace Leggermente.Translator
         {
             return base.GetHashCode();
         }
-        
+
         //Metodi
         /// <summary>
         /// Aggiunge una variabile alla raccolta

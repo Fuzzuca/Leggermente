@@ -129,7 +129,7 @@ namespace Leggermente.Translator
         /// <returns>Pertinenza con il controllo</returns>
         public static bool CheckNameIntegrity(string Name)
         {
-            return Regex.Match(Name, @"^([_a-z][\w]*)?", RegexOptions.IgnoreCase).Success;
+            return Regex.Match(Name, @"^([a-z][\w]*)?", RegexOptions.IgnoreCase).Success;
         }
         /// <summary>
         /// Rimpiazza le parole chiave sinonimo
@@ -194,7 +194,6 @@ namespace Leggermente.Translator
     public static class CodeElaborator
     {
         #region Costanti
-        //Regex.Replace(RawCode, @"@#(?:[^#]+|##)*#|#(?:[^#\\]+|\\.)*#".Replace('#', '\"'), "#", RegexOptions.None)
 
         static public VariableCollection ExtractConstant(ref string RawCode, LogManager lm)
         {
@@ -207,9 +206,9 @@ namespace Leggermente.Translator
                 m = Regex.Match(RawCode, @"@#(?:[^#]+|##)*#|#(?:[^#\\]+|\\.)*#".Replace('#', '\"'), RegexOptions.Singleline);
                 if (m.Success && m.Length > 0)
                 {
-                    ret.Add(new Variable("txtConst" + indexr.ToString(), m.Value));
+                    ret.Add(new Variable("_text" + indexr.ToString(), m.Value));
                     RawCode = RawCode.Remove(m.Index , m.Length);
-                    RawCode = RawCode.Insert(m.Index , "txtConst" + indexr.ToString());
+                    RawCode = RawCode.Insert(m.Index , "_text" + indexr.ToString());
                     indexr++;
                 }
             } while (m.Success && m.Length > 0);
@@ -221,16 +220,15 @@ namespace Leggermente.Translator
                 m = Regex.Match(RawCode, @"[ ,]\d+([.]?\d+)?(\^?\d+)?", RegexOptions.Singleline);
                 if (m.Success && m.Length > 0)
                 {
-                    ret.Add(new Variable("numConst" + indexr.ToString(), m.Value.TrimStart(' ', ',')));
+                    ret.Add(new Variable("_num" + indexr.ToString(), m.Value.TrimStart(' ', ',')));
                     RawCode = RawCode.Remove(m.Index + 1, m.Length - 1);
-                    RawCode = RawCode.Insert(m.Index + 1, "numConst" + indexr.ToString());
+                    RawCode = RawCode.Insert(m.Index + 1, "_num" + indexr.ToString());
                     indexr++;
                 }
             } while (m.Success && m.Length > 0);
 
             return ret;
         }
-
 
         #endregion
 

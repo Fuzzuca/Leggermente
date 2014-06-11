@@ -44,12 +44,12 @@ namespace Leggermente.Translator
         {
             if (cls != null && cls.Count > 0)
             {
-                if (Regex.IsMatch(cls[0].Code, @"crea (vettore )?[_a-z][\w]* [\w\W]+", RegexOptions.IgnoreCase))
+                if (Regex.IsMatch(cls[0].Code, @"crea (vettore )?[a-z][\w]* [\w\W]+", RegexOptions.IgnoreCase))
                 {
                     res.AddLine(GetIndent(cls[0].IndentLevel) + CreateVariable(cls[0]), lm);
                     AnalyzeCodeline(cls.Extractor(1));
                 }
-                else if (Regex.IsMatch(cls[0].Code, @"cambia [_a-z][\w]* [\w\W]+", RegexOptions.IgnoreCase))
+                else if (Regex.IsMatch(cls[0].Code, @"cambia [a-z][\w]* [\w\W]+", RegexOptions.IgnoreCase))
                 {
                     res.AddLine(GetIndent(cls[0].IndentLevel) + ChangeVariable(cls[0]), lm);
                     AnalyzeCodeline(cls.Extractor(1));
@@ -121,6 +121,9 @@ namespace Leggermente.Translator
                 {
                     res.AddLine(GetIndent(cls[0].IndentLevel) + "return " + CodeOperation(cls[0].Code.Remove(0, cls[0].Code.Split(' ')[0].Length).Trim(), cls[0].LineNumber) + ";", lm);
                 }
+                /*else if (Regex.IsMatch(cls[0].Code, @"[\w\W]+ ", RegexOptions.IgnoreCase))
+                {
+                }*/
                 else
                 {
                     //rattoppo VAR e IO
@@ -128,6 +131,11 @@ namespace Leggermente.Translator
                     AnalyzeCodeline(cls.Extractor(1));
                 }
             }
+        }
+
+        private void SingleFunctionCall(CodeLine cl)
+        {
+            string[] txt = cl.Code.Split(' ');
         }
 
         private void ControllaOperation(CodeLineCollection cl, string varName)
@@ -290,7 +298,7 @@ namespace Leggermente.Translator
             if (name == "|") return "|";
             VariableType type = CheckVariableName(name);
             if (type == VariableType.Variable) return name;
-            else if (type == VariableType.Constant) return def[name].Value;
+            else if (type == VariableType.Constant) return name;
             else
             {
                 lm.Add("The variable name '" + name + "' not exist", lineNumber);
@@ -299,7 +307,6 @@ namespace Leggermente.Translator
         }
         private VariableType CheckVariableName(string name)
         {
-            //name = name.Replace("|", string.Empty);
             for (int i = 0; i < def.Count; i++)
             {
                 if (def[i].Name == name)
