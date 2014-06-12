@@ -6,7 +6,7 @@
 	crea num2 a MATE.random di 0,10
 	crea num3 a MATE.random di 0,10
 	
-	se num1 maggiore num2+tasto
+	se num1 maggiore num2
 		se num1 maggiore num3
 			schermo "Il massimo è "+num1
 	    altrimenti

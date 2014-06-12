@@ -10,7 +10,7 @@ namespace Leggermente.Translator
     public class Translator : ITraslator
     {
         //Campi 
-        public LogManager lm;
+        private LogManager lm;
 
         //Costruttore
         public Translator(LogManager Log)
@@ -54,20 +54,23 @@ namespace Leggermente.Translator
             CodeImage code = CodeImage.CreateCodeImage(Code, pc, type, lm);
             ResultCode result = new ResultCode();
 
-            for (int i = 0; i < code.Package.Count; i++) result.AddInclude(code.Package[i].Name, lm);
+            if (lm.WithOutError)
+            {
+                for (int i = 0; i < code.Package.Count; i++) result.AddInclude(code.Package[i].Name, lm);
 
-            int general = pc.FirstIndexOf("GENERAL");
-            if (general < 0) lm.Add("Cannot find the main package for the program execution");
-            else code.Package.Add(pc[general]);
+                int general = pc.FirstIndexOf("GENERAL");
+                if (general < 0) lm.Add("Cannot find the main package for the program execution");
+                else code.Package.Add(pc[general]);
 
-            result.AddBlankLine();
-            result.AddLine("namespace Leggermente.Programma{ class Program{", lm);
+                result.AddBlankLine();
+                result.AddLine("namespace Leggermente.Programma{ class Program{", lm);
 
-            WriteConstant(code, result);
-            Parsing(code, result);
+                WriteConstant(code, result);
+                if (lm.WithOutError) Parsing(code, result);
 
-            result.AddBlankLine();
-            result.AddLine("} }", lm);
+                result.AddBlankLine();
+                result.AddLine("} }", lm);
+            }
             return result;
         }
 
