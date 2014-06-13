@@ -30,6 +30,7 @@ namespace LeggermenteIDE
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBase));
             this.menuIcone = new System.Windows.Forms.ToolStrip();
             this.nuovoToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -45,8 +46,6 @@ namespace LeggermenteIDE
             this.ripristinaToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbCompila = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
-            this.ToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.menuStringhe = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuovoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,6 +74,7 @@ namespace LeggermenteIDE
             this.personalizzaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.coloreSfondoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.coloreFontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.opzioniToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sommarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -99,7 +99,12 @@ namespace LeggermenteIDE
             this.MainSplit = new System.Windows.Forms.SplitContainer();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.TWfiles = new System.Windows.Forms.TreeView();
-            this.RTBText = new LeggermenteIDE.RichTextBoxEx();
+            this.CMSRTBText = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ouToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tagliaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.copiaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.incollaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.salvaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openFD = new System.Windows.Forms.OpenFileDialog();
             this.saveFD = new System.Windows.Forms.SaveFileDialog();
             this.printFD = new System.Windows.Forms.PrintDialog();
@@ -109,6 +114,11 @@ namespace LeggermenteIDE
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.fontDialog = new System.Windows.Forms.FontDialog();
             this.FDB = new System.Windows.Forms.FolderBrowserDialog();
+            this.RTBText = new LeggermenteIDE.RichTextBoxEx();
+            this.compilaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            this.programmaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pacchettoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuIcone.SuspendLayout();
             this.menuStringhe.SuspendLayout();
             this.SSstatus.SuspendLayout();
@@ -117,6 +127,7 @@ namespace LeggermenteIDE
             this.MainSplit.Panel2.SuspendLayout();
             this.MainSplit.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.CMSRTBText.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitError)).BeginInit();
             this.splitError.Panel1.SuspendLayout();
             this.splitError.Panel2.SuspendLayout();
@@ -139,9 +150,7 @@ namespace LeggermenteIDE
             this.annullaToolStripButton1,
             this.ripristinaToolStripButton,
             this.toolStripSeparator8,
-            this.tsbCompila,
-            this.toolStripSeparator9,
-            this.ToolStripButton});
+            this.tsbCompila});
             this.menuIcone.Location = new System.Drawing.Point(0, 24);
             this.menuIcone.Name = "menuIcone";
             this.menuIcone.Size = new System.Drawing.Size(732, 25);
@@ -201,6 +210,7 @@ namespace LeggermenteIDE
             this.tagliaToolStripButton.Name = "tagliaToolStripButton";
             this.tagliaToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.tagliaToolStripButton.Text = "&Taglia";
+            this.tagliaToolStripButton.Click += new System.EventHandler(this.tagliaToolStripMenuItem_Click);
             // 
             // copiaToolStripButton
             // 
@@ -210,6 +220,7 @@ namespace LeggermenteIDE
             this.copiaToolStripButton.Name = "copiaToolStripButton";
             this.copiaToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.copiaToolStripButton.Text = "&Copia";
+            this.copiaToolStripButton.Click += new System.EventHandler(this.copiaToolStripMenuItem_Click);
             // 
             // incollaToolStripButton
             // 
@@ -219,6 +230,7 @@ namespace LeggermenteIDE
             this.incollaToolStripButton.Name = "incollaToolStripButton";
             this.incollaToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.incollaToolStripButton.Text = "&Incolla";
+            this.incollaToolStripButton.Click += new System.EventHandler(this.incollaToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -232,7 +244,7 @@ namespace LeggermenteIDE
             this.annullaToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.annullaToolStripButton1.Name = "annullaToolStripButton1";
             this.annullaToolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.annullaToolStripButton1.Text = "toolStripButton1";
+            this.annullaToolStripButton1.Text = "Undo";
             this.annullaToolStripButton1.Click += new System.EventHandler(this.annullaToolStripMenuItem_Click);
             // 
             // ripristinaToolStripButton
@@ -242,7 +254,7 @@ namespace LeggermenteIDE
             this.ripristinaToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ripristinaToolStripButton.Name = "ripristinaToolStripButton";
             this.ripristinaToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.ripristinaToolStripButton.Text = "toolStripButton2";
+            this.ripristinaToolStripButton.Text = "Redo";
             this.ripristinaToolStripButton.Click += new System.EventHandler(this.ripristinaToolStripMenuItem_Click);
             // 
             // toolStripSeparator8
@@ -257,22 +269,8 @@ namespace LeggermenteIDE
             this.tsbCompila.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbCompila.Name = "tsbCompila";
             this.tsbCompila.Size = new System.Drawing.Size(23, 22);
-            this.tsbCompila.Text = "toolStripButton1";
+            this.tsbCompila.Text = "Compila";
             this.tsbCompila.Click += new System.EventHandler(this.tsbCompila_Click);
-            // 
-            // toolStripSeparator9
-            // 
-            this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(6, 25);
-            // 
-            // ToolStripButton
-            // 
-            this.ToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.ToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("ToolStripButton.Image")));
-            this.ToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ToolStripButton.Name = "ToolStripButton";
-            this.ToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.ToolStripButton.Text = "&?";
             // 
             // menuStringhe
             // 
@@ -402,7 +400,7 @@ namespace LeggermenteIDE
             this.annullaToolStripMenuItem.Enabled = false;
             this.annullaToolStripMenuItem.Name = "annullaToolStripMenuItem";
             this.annullaToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.annullaToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.annullaToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.annullaToolStripMenuItem.Text = "&Annulla";
             this.annullaToolStripMenuItem.Click += new System.EventHandler(this.annullaToolStripMenuItem_Click);
             // 
@@ -411,14 +409,14 @@ namespace LeggermenteIDE
             this.ripristinaToolStripMenuItem.Enabled = false;
             this.ripristinaToolStripMenuItem.Name = "ripristinaToolStripMenuItem";
             this.ripristinaToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.ripristinaToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.ripristinaToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.ripristinaToolStripMenuItem.Text = "&Ripristina";
             this.ripristinaToolStripMenuItem.Click += new System.EventHandler(this.ripristinaToolStripMenuItem_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(170, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(161, 6);
             // 
             // tagliaToolStripMenuItem
             // 
@@ -426,7 +424,7 @@ namespace LeggermenteIDE
             this.tagliaToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tagliaToolStripMenuItem.Name = "tagliaToolStripMenuItem";
             this.tagliaToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.tagliaToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.tagliaToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.tagliaToolStripMenuItem.Text = "&Taglia";
             this.tagliaToolStripMenuItem.Click += new System.EventHandler(this.tagliaToolStripMenuItem_Click);
             // 
@@ -436,7 +434,7 @@ namespace LeggermenteIDE
             this.copiaToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.copiaToolStripMenuItem.Name = "copiaToolStripMenuItem";
             this.copiaToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.copiaToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.copiaToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.copiaToolStripMenuItem.Text = "&Copia";
             this.copiaToolStripMenuItem.Click += new System.EventHandler(this.copiaToolStripMenuItem_Click);
             // 
@@ -446,19 +444,19 @@ namespace LeggermenteIDE
             this.incollaToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.incollaToolStripMenuItem.Name = "incollaToolStripMenuItem";
             this.incollaToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.incollaToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.incollaToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.incollaToolStripMenuItem.Text = "&Incolla";
             this.incollaToolStripMenuItem.Click += new System.EventHandler(this.incollaToolStripMenuItem_Click);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(170, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(161, 6);
             // 
             // selezionatuttoToolStripMenuItem
             // 
             this.selezionatuttoToolStripMenuItem.Name = "selezionatuttoToolStripMenuItem";
-            this.selezionatuttoToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.selezionatuttoToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.selezionatuttoToolStripMenuItem.Text = "Seleziona &tutto";
             this.selezionatuttoToolStripMenuItem.Click += new System.EventHandler(this.selezionatuttoToolStripMenuItem_Click);
             // 
@@ -494,6 +492,8 @@ namespace LeggermenteIDE
             // strumentiToolStripMenuItem
             // 
             this.strumentiToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.compilaToolStripMenuItem,
+            this.toolStripSeparator9,
             this.personalizzaToolStripMenuItem,
             this.opzioniToolStripMenuItem});
             this.strumentiToolStripMenuItem.Name = "strumentiToolStripMenuItem";
@@ -504,29 +504,37 @@ namespace LeggermenteIDE
             // 
             this.personalizzaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fontToolStripMenuItem,
-            this.coloreSfondoToolStripMenuItem});
+            this.coloreSfondoToolStripMenuItem,
+            this.coloreFontToolStripMenuItem});
             this.personalizzaToolStripMenuItem.Name = "personalizzaToolStripMenuItem";
-            this.personalizzaToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.personalizzaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.personalizzaToolStripMenuItem.Text = "&Personalizza";
             // 
             // fontToolStripMenuItem
             // 
             this.fontToolStripMenuItem.Name = "fontToolStripMenuItem";
-            this.fontToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.fontToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.fontToolStripMenuItem.Text = "&Font";
             this.fontToolStripMenuItem.Click += new System.EventHandler(this.fontToolStripMenuItem_Click);
             // 
             // coloreSfondoToolStripMenuItem
             // 
             this.coloreSfondoToolStripMenuItem.Name = "coloreSfondoToolStripMenuItem";
-            this.coloreSfondoToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.coloreSfondoToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.coloreSfondoToolStripMenuItem.Text = "&Sfondo";
             this.coloreSfondoToolStripMenuItem.Click += new System.EventHandler(this.coloreSfondoToolStripMenuItem_Click);
+            // 
+            // coloreFontToolStripMenuItem
+            // 
+            this.coloreFontToolStripMenuItem.Name = "coloreFontToolStripMenuItem";
+            this.coloreFontToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.coloreFontToolStripMenuItem.Text = "Colore Font";
+            this.coloreFontToolStripMenuItem.Click += new System.EventHandler(this.coloreFontToolStripMenuItem_Click);
             // 
             // opzioniToolStripMenuItem
             // 
             this.opzioniToolStripMenuItem.Name = "opzioniToolStripMenuItem";
-            this.opzioniToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.opzioniToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.opzioniToolStripMenuItem.Text = "&Opzioni";
             // 
             // ToolStripMenuItem
@@ -624,21 +632,21 @@ namespace LeggermenteIDE
             // TSMI150
             // 
             this.TSMI150.Name = "TSMI150";
-            this.TSMI150.Size = new System.Drawing.Size(152, 22);
+            this.TSMI150.Size = new System.Drawing.Size(102, 22);
             this.TSMI150.Text = "150%";
             this.TSMI150.Click += new System.EventHandler(this.TSMI_Click);
             // 
             // TSMI130
             // 
             this.TSMI130.Name = "TSMI130";
-            this.TSMI130.Size = new System.Drawing.Size(152, 22);
+            this.TSMI130.Size = new System.Drawing.Size(102, 22);
             this.TSMI130.Text = "130%";
             this.TSMI130.Click += new System.EventHandler(this.TSMI_Click);
             // 
             // TSMI110
             // 
             this.TSMI110.Name = "TSMI110";
-            this.TSMI110.Size = new System.Drawing.Size(152, 22);
+            this.TSMI110.Size = new System.Drawing.Size(102, 22);
             this.TSMI110.Text = "110%";
             this.TSMI110.Click += new System.EventHandler(this.TSMI_Click);
             // 
@@ -648,42 +656,42 @@ namespace LeggermenteIDE
             this.TSMI100.Checked = true;
             this.TSMI100.CheckState = System.Windows.Forms.CheckState.Checked;
             this.TSMI100.Name = "TSMI100";
-            this.TSMI100.Size = new System.Drawing.Size(152, 22);
+            this.TSMI100.Size = new System.Drawing.Size(102, 22);
             this.TSMI100.Text = "100%";
             this.TSMI100.Click += new System.EventHandler(this.TSMI_Click);
             // 
             // TSMI90
             // 
             this.TSMI90.Name = "TSMI90";
-            this.TSMI90.Size = new System.Drawing.Size(152, 22);
+            this.TSMI90.Size = new System.Drawing.Size(102, 22);
             this.TSMI90.Text = "90%";
             this.TSMI90.Click += new System.EventHandler(this.TSMI_Click);
             // 
             // TSMI80
             // 
             this.TSMI80.Name = "TSMI80";
-            this.TSMI80.Size = new System.Drawing.Size(152, 22);
+            this.TSMI80.Size = new System.Drawing.Size(102, 22);
             this.TSMI80.Text = "80%";
             this.TSMI80.Click += new System.EventHandler(this.TSMI_Click);
             // 
             // TSMI75
             // 
             this.TSMI75.Name = "TSMI75";
-            this.TSMI75.Size = new System.Drawing.Size(152, 22);
+            this.TSMI75.Size = new System.Drawing.Size(102, 22);
             this.TSMI75.Text = "75%";
             this.TSMI75.Click += new System.EventHandler(this.TSMI_Click);
             // 
             // TSMI60
             // 
             this.TSMI60.Name = "TSMI60";
-            this.TSMI60.Size = new System.Drawing.Size(152, 22);
+            this.TSMI60.Size = new System.Drawing.Size(102, 22);
             this.TSMI60.Text = "60%";
             this.TSMI60.Click += new System.EventHandler(this.TSMI_Click);
             // 
             // TSMI50
             // 
             this.TSMI50.Name = "TSMI50";
-            this.TSMI50.Size = new System.Drawing.Size(152, 22);
+            this.TSMI50.Size = new System.Drawing.Size(102, 22);
             this.TSMI50.Text = "50%";
             this.TSMI50.Click += new System.EventHandler(this.TSMI_Click);
             // 
@@ -725,23 +733,51 @@ namespace LeggermenteIDE
             this.TWfiles.Size = new System.Drawing.Size(244, 467);
             this.TWfiles.TabIndex = 0;
             // 
-            // RTBText
+            // CMSRTBText
             // 
-            this.RTBText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RTBText.Location = new System.Drawing.Point(0, 0);
-            this.RTBText.Name = "RTBText";
-            this.RTBText.NumberAlignment = System.Drawing.StringAlignment.Center;
-            this.RTBText.NumberBorder = System.Drawing.Color.Empty;
-            this.RTBText.NumberBorderThickness = 1F;
-            this.RTBText.NumberColor = System.Drawing.Color.DarkGray;
-            this.RTBText.NumberFont = LetturaFileFont();
-            this.RTBText.NumberLeadingZeroes = false;
-            this.RTBText.NumberLineCounting = LeggermenteIDE.RichTextBoxEx.LineCounting.CRLF;
-            this.RTBText.NumberPadding = 2;
-            this.RTBText.ShowLineNumbers = false;
-            this.RTBText.Size = new System.Drawing.Size(481, 486);
-            this.RTBText.TabIndex = 0;
-            this.RTBText.Text = "";
+            this.CMSRTBText.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ouToolStripMenuItem,
+            this.tagliaToolStripMenuItem1,
+            this.copiaToolStripMenuItem1,
+            this.incollaToolStripMenuItem1,
+            this.salvaToolStripMenuItem1});
+            this.CMSRTBText.Name = "CMSRTBText";
+            this.CMSRTBText.Size = new System.Drawing.Size(111, 114);
+            // 
+            // ouToolStripMenuItem
+            // 
+            this.ouToolStripMenuItem.Name = "ouToolStripMenuItem";
+            this.ouToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.ouToolStripMenuItem.Text = "Nuovo";
+            this.ouToolStripMenuItem.Click += new System.EventHandler(this.nuovoToolStripMenuItem_Click);
+            // 
+            // tagliaToolStripMenuItem1
+            // 
+            this.tagliaToolStripMenuItem1.Name = "tagliaToolStripMenuItem1";
+            this.tagliaToolStripMenuItem1.Size = new System.Drawing.Size(110, 22);
+            this.tagliaToolStripMenuItem1.Text = "Taglia";
+            this.tagliaToolStripMenuItem1.Click += new System.EventHandler(this.tagliaToolStripMenuItem_Click);
+            // 
+            // copiaToolStripMenuItem1
+            // 
+            this.copiaToolStripMenuItem1.Name = "copiaToolStripMenuItem1";
+            this.copiaToolStripMenuItem1.Size = new System.Drawing.Size(110, 22);
+            this.copiaToolStripMenuItem1.Text = "Copia";
+            this.copiaToolStripMenuItem1.Click += new System.EventHandler(this.copiaToolStripMenuItem_Click);
+            // 
+            // incollaToolStripMenuItem1
+            // 
+            this.incollaToolStripMenuItem1.Name = "incollaToolStripMenuItem1";
+            this.incollaToolStripMenuItem1.Size = new System.Drawing.Size(110, 22);
+            this.incollaToolStripMenuItem1.Text = "Incolla";
+            this.incollaToolStripMenuItem1.Click += new System.EventHandler(this.incollaToolStripMenuItem_Click);
+            // 
+            // salvaToolStripMenuItem1
+            // 
+            this.salvaToolStripMenuItem1.Name = "salvaToolStripMenuItem1";
+            this.salvaToolStripMenuItem1.Size = new System.Drawing.Size(110, 22);
+            this.salvaToolStripMenuItem1.Text = "Salva";
+            this.salvaToolStripMenuItem1.Click += new System.EventHandler(this.salvaToolStripMenuItem_Click);
             // 
             // openFD
             // 
@@ -794,6 +830,56 @@ namespace LeggermenteIDE
             this.RTBLog.TabIndex = 0;
             this.RTBLog.Text = "Nessun Errore... \nPer ora!   u.u";
             // 
+            // RTBText
+            // 
+            this.RTBText.BackColor = System.Drawing.SystemColors.Desktop;
+            this.RTBText.ContextMenuStrip = this.CMSRTBText;
+            this.RTBText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RTBText.ForeColor = System.Drawing.SystemColors.Info;
+            this.RTBText.Location = new System.Drawing.Point(0, 0);
+            this.RTBText.Name = "RTBText";
+            this.RTBText.NumberAlignment = System.Drawing.StringAlignment.Center;
+            this.RTBText.NumberBorder = System.Drawing.Color.Empty;
+            this.RTBText.NumberBorderThickness = 1F;
+            this.RTBText.NumberColor = System.Drawing.Color.DarkGray;
+            this.RTBText.NumberFont = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RTBText.NumberLeadingZeroes = false;
+            this.RTBText.NumberLineCounting = LeggermenteIDE.RichTextBoxEx.LineCounting.CRLF;
+            this.RTBText.NumberPadding = 2;
+            this.RTBText.ShowLineNumbers = true;
+            this.RTBText.Size = new System.Drawing.Size(481, 486);
+            this.RTBText.TabIndex = 0;
+            this.RTBText.Text = "|inserisci il tuo codice qui|";
+            this.RTBText.TextChanged += new System.EventHandler(this.RTBText_TextChanged);
+            // 
+            // compilaToolStripMenuItem
+            // 
+            this.compilaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.programmaToolStripMenuItem,
+            this.pacchettoToolStripMenuItem});
+            this.compilaToolStripMenuItem.Name = "compilaToolStripMenuItem";
+            this.compilaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.compilaToolStripMenuItem.Text = "&Compila";
+            // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(149, 6);
+            // 
+            // programmaToolStripMenuItem
+            // 
+            this.programmaToolStripMenuItem.Name = "programmaToolStripMenuItem";
+            this.programmaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.programmaToolStripMenuItem.Text = "Programma";
+            this.programmaToolStripMenuItem.Click += new System.EventHandler(this.tsbCompila_Click);
+            // 
+            // pacchettoToolStripMenuItem
+            // 
+            this.pacchettoToolStripMenuItem.Name = "pacchettoToolStripMenuItem";
+            this.pacchettoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.pacchettoToolStripMenuItem.Text = "Pacchetto";
+            this.pacchettoToolStripMenuItem.Click += new System.EventHandler(this.pacchettoToolStripMenuItem_Click);
+            // 
             // FormBase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -817,6 +903,7 @@ namespace LeggermenteIDE
             ((System.ComponentModel.ISupportInitialize)(this.MainSplit)).EndInit();
             this.MainSplit.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this.CMSRTBText.ResumeLayout(false);
             this.splitError.Panel1.ResumeLayout(false);
             this.splitError.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitError)).EndInit();
@@ -825,18 +912,47 @@ namespace LeggermenteIDE
             this.ResumeLayout(false);
             this.PerformLayout();
 
+            ApplicaConfigurazioni();
+
         }
 
         #endregion
 
-        private System.Drawing.Font LetturaFileFont() 
+        #region Lettura Configurazione Form
+
+        private System.Drawing.Font LetturaFileFont()
         {
             System.Drawing.Font ret;
             string[] file = System.IO.File.ReadAllLines(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData) + @"\Leggermente\FormConfig.lmc");
             string[] prefont = file[6].Split('=', ';');
             ret = new System.Drawing.Font(prefont[1], (float)System.Convert.ToDouble(prefont[2]));
             return ret;
-        } 
+        }
+        private System.Drawing.Color LetturaFileBGColor()
+        {
+            System.Drawing.Color ret;
+            string[] file = System.IO.File.ReadAllLines(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData) + @"\Leggermente\FormConfig.lmc");
+            string[] prebg = file[7].Split('=', ';');
+            ret = System.Drawing.Color.FromArgb(System.Convert.ToInt32(prebg[1]), System.Convert.ToInt32(prebg[2]),System.Convert.ToInt32(prebg[3]));
+            return ret;
+        }
+        private System.Drawing.Color LetturaFileForeColor()
+        {
+            System.Drawing.Color ret;
+            string[] file = System.IO.File.ReadAllLines(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData) + @"\Leggermente\FormConfig.lmc");
+            string[] prefore = file[8].Split('=', ';');
+            ret = System.Drawing.Color.FromArgb(System.Convert.ToInt32(prefore[1]), System.Convert.ToInt32(prefore[2]), System.Convert.ToInt32(prefore[3]));
+            return ret;
+        }
+
+        private void ApplicaConfigurazioni()
+        {
+            this.RTBText.Font = LetturaFileFont();
+            this.RTBText.BackColor = LetturaFileBGColor();
+            this.RTBText.ForeColor = LetturaFileForeColor();
+        }
+
+        #endregion
 
         private System.Windows.Forms.ToolStrip menuIcone;
         private System.Windows.Forms.ToolStripButton nuovoToolStripButton;
@@ -848,7 +964,6 @@ namespace LeggermenteIDE
         private System.Windows.Forms.ToolStripButton copiaToolStripButton;
         private System.Windows.Forms.ToolStripButton incollaToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton ToolStripButton;
         private System.Windows.Forms.MenuStrip menuStringhe;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nuovoToolStripMenuItem;
@@ -914,8 +1029,18 @@ namespace LeggermenteIDE
         private System.Windows.Forms.FontDialog fontDialog;
         private System.Windows.Forms.FolderBrowserDialog FDB;
         private System.Windows.Forms.ToolStripButton tsbCompila;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private RichTextBoxEx RTBText;
+        private System.Windows.Forms.ToolStripMenuItem coloreFontToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip CMSRTBText;
+        private System.Windows.Forms.ToolStripMenuItem ouToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tagliaToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem copiaToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem incollaToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem salvaToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem compilaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem programmaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pacchettoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
     }
 }
 

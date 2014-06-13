@@ -19,6 +19,14 @@ namespace LeggermenteIDE
     public partial class FormBase : Form
     {
 
+        public FormBase()
+        {
+            InitializeComponent();
+            size = RTBText.Font.Size;
+            color = ColorConfig.Leggifile();
+
+        }
+
         #region Variabili Private
         private double size;
         private ToolStripMenuItem prev;
@@ -102,6 +110,38 @@ namespace LeggermenteIDE
                     throw new OperationCanceledException("Operazione annullata");
                 }
             }
+        }
+
+        private void DocumentToPrint_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            StringReader reader = new StringReader(RTBText.Text);
+            float LinesPerPage = 0;
+            float YPosition = 0;
+            int Count = 0;
+            float LeftMargin = e.MarginBounds.Left;
+            float TopMargin = e.MarginBounds.Top;
+            string Line = null;
+            Font PrintFont = this.RTBText.Font;
+            SolidBrush PrintBrush = new SolidBrush(Color.Black);
+
+            LinesPerPage = e.MarginBounds.Height / PrintFont.GetHeight(e.Graphics);
+
+            while (Count < LinesPerPage && ((Line = reader.ReadLine()) != null))
+            {
+                YPosition = TopMargin + (Count * PrintFont.GetHeight(e.Graphics));
+                e.Graphics.DrawString(Line, PrintFont, PrintBrush, LeftMargin, YPosition, new StringFormat());
+                Count++;
+            }
+
+            if (Line != null)
+            {
+                e.HasMorePages = true;
+            }
+            else
+            {
+                e.HasMorePages = false;
+            }
+            PrintBrush.Dispose();
         }
 
         #endregion
@@ -244,17 +284,20 @@ namespace LeggermenteIDE
 
         private void tagliaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RTBText.Cut();
+            Clipboard.Clear();
+            Clipboard.SetText(RTBText.SelectedText);
+            RTBText.SelectedText = "";
         }
 
         private void copiaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RTBText.Copy();
+            Clipboard.Clear();
+            Clipboard.SetText(RTBText.SelectedText);
         }
 
         private void incollaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RTBText.Paste();
+            RTBText.SelectedText = Clipboard.GetText();
         }
 
         #endregion
@@ -266,7 +309,13 @@ namespace LeggermenteIDE
         private void coloreSfondoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (colorDialog.ShowDialog() == DialogResult.OK)
-                RTBText.BackColor = colorDialog.Color;
+            {
+                Color c = colorDialog.Color;
+                RTBText.BackColor = c;
+                string[] load = File.ReadAllLines(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Leggermente\FormConfig.lmc");
+                load[7] = "BgColor=" + c.R + ";" + c.G + ";" + c.B;
+                File.WriteAllLines(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Leggermente\FormConfig.lmc", load);
+            }
         }
 
         private void fontToolStripMenuItem_Click(object sender, EventArgs e)
@@ -280,43 +329,59 @@ namespace LeggermenteIDE
             }
         }
 
-        #endregion
-
-        #endregion
-
-        #endregion
-
-        private void DocumentToPrint_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        private void coloreFontToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            StringReader reader = new StringReader(RTBText.Text);
-            float LinesPerPage = 0;
-            float YPosition = 0;
-            int Count = 0;
-            float LeftMargin = e.MarginBounds.Left;
-            float TopMargin = e.MarginBounds.Top;
-            string Line = null;
-            Font PrintFont = this.RTBText.Font;
-            SolidBrush PrintBrush = new SolidBrush(Color.Black);
-
-            LinesPerPage = e.MarginBounds.Height / PrintFont.GetHeight(e.Graphics);
-
-            while (Count < LinesPerPage && ((Line = reader.ReadLine()) != null))
+            if (colorDialog.ShowDialog() == DialogResult.OK)
             {
-                YPosition = TopMargin + (Count * PrintFont.GetHeight(e.Graphics));
-                e.Graphics.DrawString(Line, PrintFont, PrintBrush, LeftMargin, YPosition, new StringFormat());
-                Count++;
+                Color c = colorDialog.Color;
+                RTBText.ForeColor = c;
+                string[] load = File.ReadAllLines(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Leggermente\FormConfig.lmc");
+                load[8] = "ForeColor=" + c.R + ";" + c.G + ";" + c.B;
+                File.WriteAllLines(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Leggermente\FormConfig.lmc", load);
             }
-
-            if (Line != null)
-            {
-                e.HasMorePages = true;
-            }
-            else
-            {
-                e.HasMorePages = false;
-            }
-            PrintBrush.Dispose();
         }
+
+        #endregion
+
+        #region Compila
+
+        private void tsbCompila_Click(object sender, EventArgs e)
+        {
+            LogManager errori = new LogManager();
+            Translator traduttore = new Translator(errori);
+            string[] pacccccccchetttttttu;
+            string rex = "aggiungi";
+            MatchCollection matches = Regex.Matches(RTBText.Text, rex);
+            int j = 0;
+            pacccccccchetttttttu = new string[matches.Count+1];
+            foreach (Match i in matches)
+            {
+                int index = i.Index+i.Length;
+                string line = RTBText.Lines[RTBText.GetLineFromCharIndex(index)];
+                RTBText.Select(index, line.Length - i.Length);
+                pacccccccchetttttttu[j] = "./" + RTBText.SelectedText.Trim() + ".lmp";
+                j++;
+            }
+            pacccccccchetttttttu[j] = "./LEGGERMENTE.lmp";
+
+            ResultCode risultato = traduttore.Translate(CodeType.Program, RTBText.Text, pacccccccchetttttttu, "./result.exe");
+            if (!errori.WithOutError) RTBLog.Lines = errori.LogList;
+            else MessageBox.Show(risultato.ToString());
+        }
+
+
+        private void pacchettoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        #endregion
+
+        #endregion
+
+        #endregion
+
+        #region Eventi
 
         private void FormBase_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -325,7 +390,7 @@ namespace LeggermenteIDE
                 ControlloInChiusura();
             }
             catch (OperationCanceledException) { e.Cancel = true; }
-        }
+        }//chiusura form
 
         private void RTBText_TextChanged(object sender, EventArgs e)
         {
@@ -353,7 +418,7 @@ namespace LeggermenteIDE
             if (!flag_modified)
                 flag_modified = true;
             this.ResumeLayout(true);
-        }
+        }//Modifica Testo
 
         private void TSMI_Click(object sender, EventArgs e)
         {
@@ -368,34 +433,13 @@ namespace LeggermenteIDE
             TSSLZoom.Text = "Zoom: " + Clone.Text;      //modifico la stringa
         }//gestione zoom
 
-        public FormBase()
-        {
-            InitializeComponent();
-            size = RTBText.Font.Size;
-            string pos = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Leggermente\ColorsConfig.lmc";
-            color = ColorConfig.Leggifile(pos);
-            
-        }
-
-        private void clock_Tick(object sender, EventArgs e)
+        private void ouToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
 
         #endregion
 
-        private void tsbCompila_Click(object sender, EventArgs e)
-        {
-            LogManager errori = new LogManager();
-            Translator traduttore = new Translator(errori);
-            string [] pacccccccchetttttttu = new string[2];
-            pacccccccchetttttttu[0] = "./MATE.lmp";
-            pacccccccchetttttttu[1] = "./LEGGERMENTE.lmp";
-
-            ResultCode risultato = traduttore.Translate(CodeType.Program, RTBText.Text, pacccccccchetttttttu, "./result.exe");
-            if (!errori.WithOutError) RTBLog.Lines = errori.LogList;
-            else MessageBox.Show(risultato.ToString());
-        }
-
+        #endregion
     }
 }

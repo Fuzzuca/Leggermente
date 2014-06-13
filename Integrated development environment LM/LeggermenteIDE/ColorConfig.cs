@@ -34,8 +34,9 @@ namespace LeggermenteIDE
             rexop = RegexOption;
         }
 
-        public static List<ColorConfig> Leggifile(string path)
+        public static List<ColorConfig> Leggifile()
         {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Leggermente\ColorsConfig.lmc";
             string[] PreConfig;
             List<ColorConfig> ret;
             if (!File.Exists(path))
@@ -82,6 +83,8 @@ namespace LeggermenteIDE
 
         public static void ColoraTesto(RichTextBoxEx rtb, List<ColorConfig> color)
         {
+            if (color == null)
+                color=Leggifile();
             rtb.SuspendLayout();
             int selIndx = rtb.SelectionStart;                                   //salvo le coordinate di un eventuale selezione
             int selLeght = rtb.SelectionLength;

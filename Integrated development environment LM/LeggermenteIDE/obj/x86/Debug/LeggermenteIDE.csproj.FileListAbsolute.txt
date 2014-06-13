@@ -9,3 +9,14 @@ C:\Users\Fuzzuca\Documents\GitHub\Leggermente\Integrated development environment
 C:\Users\Fuzzuca\Documents\GitHub\Leggermente\Integrated development environment LM\LeggermenteIDE\bin\Debug\Ionic.Zip.dll
 C:\Users\Fuzzuca\Documents\GitHub\Leggermente\Integrated development environment LM\LeggermenteIDE\bin\Debug\Leggermente.Translator.pdb
 C:\Users\Fuzzuca\Documents\GitHub\Leggermente\Integrated development environment LM\LeggermenteIDE\obj\x86\Debug\LeggermenteIDE.csprojResolveAssemblyReference.cache
+C:\Users\Quaka\Documents\GitHub\Leggermente\Integrated development environment LM\LeggermenteIDE\obj\x86\Debug\LeggermenteIDE.exe
+C:\Users\Quaka\Documents\GitHub\Leggermente\Integrated development environment LM\LeggermenteIDE\obj\x86\Debug\LeggermenteIDE.pdb
+C:\Users\Quaka\Documents\GitHub\Leggermente\Integrated development environment LM\LeggermenteIDE\bin\Debug\LeggermenteIDE.exe
+C:\Users\Quaka\Documents\GitHub\Leggermente\Integrated development environment LM\LeggermenteIDE\bin\Debug\LeggermenteIDE.pdb
+C:\Users\Quaka\Documents\GitHub\Leggermente\Integrated development environment LM\LeggermenteIDE\bin\Debug\Leggermente.Translator.dll
+C:\Users\Quaka\Documents\GitHub\Leggermente\Integrated development environment LM\LeggermenteIDE\bin\Debug\Ionic.Zip.dll
+C:\Users\Quaka\Documents\GitHub\Leggermente\Integrated development environment LM\LeggermenteIDE\bin\Debug\Leggermente.Translator.pdb
+C:\Users\Quaka\Documents\GitHub\Leggermente\Integrated development environment LM\LeggermenteIDE\obj\x86\Debug\LeggermenteIDE.csprojResolveAssemblyReference.cache
+C:\Users\Quaka\Documents\GitHub\Leggermente\Integrated development environment LM\LeggermenteIDE\obj\x86\Debug\LeggermenteIDE.FormBase.resources
+C:\Users\Quaka\Documents\GitHub\Leggermente\Integrated development environment LM\LeggermenteIDE\obj\x86\Debug\LeggermenteIDE.Properties.Resources.resources
+C:\Users\Quaka\Documents\GitHub\Leggermente\Integrated development environment LM\LeggermenteIDE\obj\x86\Debug\LeggermenteIDE.csproj.GenerateResource.Cache
