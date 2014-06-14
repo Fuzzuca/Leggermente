@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Drawing;
+using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace LeggermenteIDE
 {
@@ -85,7 +87,6 @@ namespace LeggermenteIDE
         {
             if (color == null)
                 color=Leggifile();
-            rtb.SuspendLayout();
             int selIndx = rtb.SelectionStart;                                   //salvo le coordinate di un eventuale selezione
             int selLeght = rtb.SelectionLength;
             Color col = rtb.ForeColor;                                          //salvo il colore iniziale del font
@@ -118,7 +119,25 @@ namespace LeggermenteIDE
             rtb.SelectionStart = selIndx;
             rtb.SelectionLength = selLeght;
             rtb.SelectionColor = col;
-            rtb.ResumeLayout(true);
+        }
+    }
+
+    class RefreshControl
+    {
+        [DllImport("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, Int32 wMsg, bool wParam, Int32 lParam);
+
+        private const int WM_SETREDRAW = 11;
+
+        public static void SuspendDrawing(Control parent)
+        {
+            SendMessage(parent.Handle, WM_SETREDRAW, false, 0);
+        }
+
+        public static void ResumeDrawing(Control parent)
+        {
+            SendMessage(parent.Handle, WM_SETREDRAW, true, 0);
+            parent.Refresh();
         }
     }
 }

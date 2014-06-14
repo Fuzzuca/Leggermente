@@ -23,8 +23,6 @@ namespace LeggermenteIDE
         {
             InitializeComponent();
             size = RTBText.Font.Size;
-            color = ColorConfig.Leggifile();
-
         }
 
         #region Variabili Private
@@ -372,7 +370,26 @@ namespace LeggermenteIDE
 
         private void pacchettoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            LogManager errori = new LogManager();
+            Translator traduttore = new Translator(errori);
+            string[] pacccccccchetttttttu;
+            string rex = "aggiungi";
+            MatchCollection matches = Regex.Matches(RTBText.Text, rex);
+            int j = 0;
+            pacccccccchetttttttu = new string[matches.Count + 1];
+            foreach (Match i in matches)
+            {
+                int index = i.Index + i.Length;
+                string line = RTBText.Lines[RTBText.GetLineFromCharIndex(index)];
+                RTBText.Select(index, line.Length - i.Length);
+                pacccccccchetttttttu[j] = "./" + RTBText.SelectedText.Trim() + ".lmp";
+                j++;
+            }
+            pacccccccchetttttttu[j] = "./LEGGERMENTE.lmp";
 
+            ResultCode risultato = traduttore.Translate(CodeType.Package, RTBText.Text, pacccccccchetttttttu, "./result.lmp");
+            if (!errori.WithOutError) RTBLog.Lines = errori.LogList;
+            else MessageBox.Show(risultato.ToString());
         }
 
         #endregion
@@ -394,13 +411,14 @@ namespace LeggermenteIDE
 
         private void RTBText_TextChanged(object sender, EventArgs e)
         {
-            this.SuspendLayout();
+            RefreshControl.SuspendDrawing(MainSplit);
             ColorConfig.ColoraTesto(RTBText,color);
 
+
             if (RTBText.TextLength == 0)
-            {
                 RTBText.ForeColor = Color.White;
-            }
+
+
             //controllo del focus per gestione ottimale undo / redo
             char last = (RTBText.Text.Length > 2)?RTBText.Text[RTBText.Text.Length - 1]:' '; 
             char _last = (RTBText.Text.Length > 2)?RTBText.Text[RTBText.Text.Length - 2]:' ';
@@ -417,7 +435,7 @@ namespace LeggermenteIDE
             
             if (!flag_modified)
                 flag_modified = true;
-            this.ResumeLayout(true);
+            RefreshControl.ResumeDrawing(MainSplit);
         }//Modifica Testo
 
         private void TSMI_Click(object sender, EventArgs e)
@@ -432,11 +450,6 @@ namespace LeggermenteIDE
             prev = Clone;                               //imposto il precendente
             TSSLZoom.Text = "Zoom: " + Clone.Text;      //modifico la stringa
         }//gestione zoom
-
-        private void ouToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
 
         #endregion
 

@@ -71,6 +71,10 @@ namespace LeggermenteIDE
             this.fileExplorerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.errorConsoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.strumentiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.compilaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.programmaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pacchettoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.personalizzaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.coloreSfondoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -99,6 +103,7 @@ namespace LeggermenteIDE
             this.MainSplit = new System.Windows.Forms.SplitContainer();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.TWfiles = new System.Windows.Forms.TreeView();
+            this.RTBText = new LeggermenteIDE.RichTextBoxEx();
             this.CMSRTBText = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ouToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tagliaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -114,11 +119,6 @@ namespace LeggermenteIDE
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.fontDialog = new System.Windows.Forms.FontDialog();
             this.FDB = new System.Windows.Forms.FolderBrowserDialog();
-            this.RTBText = new LeggermenteIDE.RichTextBoxEx();
-            this.compilaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
-            this.programmaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pacchettoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuIcone.SuspendLayout();
             this.menuStringhe.SuspendLayout();
             this.SSstatus.SuspendLayout();
@@ -500,6 +500,34 @@ namespace LeggermenteIDE
             this.strumentiToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
             this.strumentiToolStripMenuItem.Text = "&Strumenti";
             // 
+            // compilaToolStripMenuItem
+            // 
+            this.compilaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.programmaToolStripMenuItem,
+            this.pacchettoToolStripMenuItem});
+            this.compilaToolStripMenuItem.Name = "compilaToolStripMenuItem";
+            this.compilaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.compilaToolStripMenuItem.Text = "&Compila";
+            // 
+            // programmaToolStripMenuItem
+            // 
+            this.programmaToolStripMenuItem.Name = "programmaToolStripMenuItem";
+            this.programmaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.programmaToolStripMenuItem.Text = "Programma";
+            this.programmaToolStripMenuItem.Click += new System.EventHandler(this.tsbCompila_Click);
+            // 
+            // pacchettoToolStripMenuItem
+            // 
+            this.pacchettoToolStripMenuItem.Name = "pacchettoToolStripMenuItem";
+            this.pacchettoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.pacchettoToolStripMenuItem.Text = "Pacchetto";
+            this.pacchettoToolStripMenuItem.Click += new System.EventHandler(this.pacchettoToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(149, 6);
+            // 
             // personalizzaToolStripMenuItem
             // 
             this.personalizzaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -733,6 +761,28 @@ namespace LeggermenteIDE
             this.TWfiles.Size = new System.Drawing.Size(244, 467);
             this.TWfiles.TabIndex = 0;
             // 
+            // RTBText
+            // 
+            this.RTBText.BackColor = System.Drawing.SystemColors.Desktop;
+            this.RTBText.ContextMenuStrip = this.CMSRTBText;
+            this.RTBText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RTBText.ForeColor = System.Drawing.SystemColors.Info;
+            this.RTBText.Location = new System.Drawing.Point(0, 0);
+            this.RTBText.Name = "RTBText";
+            this.RTBText.NumberAlignment = System.Drawing.StringAlignment.Center;
+            this.RTBText.NumberBorder = System.Drawing.Color.Empty;
+            this.RTBText.NumberBorderThickness = 1F;
+            this.RTBText.NumberColor = System.Drawing.Color.DarkGray;
+            this.RTBText.NumberFont = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RTBText.NumberLeadingZeroes = false;
+            this.RTBText.NumberLineCounting = LeggermenteIDE.RichTextBoxEx.LineCounting.CRLF;
+            this.RTBText.NumberPadding = 2;
+            this.RTBText.ShowLineNumbers = true;
+            this.RTBText.Size = new System.Drawing.Size(481, 486);
+            this.RTBText.TabIndex = 0;
+            this.RTBText.Text = "|inserisci il tuo codice qui|";
+            this.RTBText.TextChanged += new System.EventHandler(this.RTBText_TextChanged);
+            // 
             // CMSRTBText
             // 
             this.CMSRTBText.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -830,56 +880,6 @@ namespace LeggermenteIDE
             this.RTBLog.TabIndex = 0;
             this.RTBLog.Text = "Nessun Errore... \nPer ora!   u.u";
             // 
-            // RTBText
-            // 
-            this.RTBText.BackColor = System.Drawing.SystemColors.Desktop;
-            this.RTBText.ContextMenuStrip = this.CMSRTBText;
-            this.RTBText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RTBText.ForeColor = System.Drawing.SystemColors.Info;
-            this.RTBText.Location = new System.Drawing.Point(0, 0);
-            this.RTBText.Name = "RTBText";
-            this.RTBText.NumberAlignment = System.Drawing.StringAlignment.Center;
-            this.RTBText.NumberBorder = System.Drawing.Color.Empty;
-            this.RTBText.NumberBorderThickness = 1F;
-            this.RTBText.NumberColor = System.Drawing.Color.DarkGray;
-            this.RTBText.NumberFont = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RTBText.NumberLeadingZeroes = false;
-            this.RTBText.NumberLineCounting = LeggermenteIDE.RichTextBoxEx.LineCounting.CRLF;
-            this.RTBText.NumberPadding = 2;
-            this.RTBText.ShowLineNumbers = true;
-            this.RTBText.Size = new System.Drawing.Size(481, 486);
-            this.RTBText.TabIndex = 0;
-            this.RTBText.Text = "|inserisci il tuo codice qui|";
-            this.RTBText.TextChanged += new System.EventHandler(this.RTBText_TextChanged);
-            // 
-            // compilaToolStripMenuItem
-            // 
-            this.compilaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.programmaToolStripMenuItem,
-            this.pacchettoToolStripMenuItem});
-            this.compilaToolStripMenuItem.Name = "compilaToolStripMenuItem";
-            this.compilaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.compilaToolStripMenuItem.Text = "&Compila";
-            // 
-            // toolStripSeparator9
-            // 
-            this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(149, 6);
-            // 
-            // programmaToolStripMenuItem
-            // 
-            this.programmaToolStripMenuItem.Name = "programmaToolStripMenuItem";
-            this.programmaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.programmaToolStripMenuItem.Text = "Programma";
-            this.programmaToolStripMenuItem.Click += new System.EventHandler(this.tsbCompila_Click);
-            // 
-            // pacchettoToolStripMenuItem
-            // 
-            this.pacchettoToolStripMenuItem.Name = "pacchettoToolStripMenuItem";
-            this.pacchettoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.pacchettoToolStripMenuItem.Text = "Pacchetto";
-            this.pacchettoToolStripMenuItem.Click += new System.EventHandler(this.pacchettoToolStripMenuItem_Click);
-            // 
             // FormBase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -913,7 +913,6 @@ namespace LeggermenteIDE
             this.PerformLayout();
 
             ApplicaConfigurazioni();
-
         }
 
         #endregion
