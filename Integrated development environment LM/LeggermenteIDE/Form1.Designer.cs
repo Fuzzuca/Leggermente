@@ -88,7 +88,6 @@ namespace LeggermenteIDE
             this.informazionisuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SSstatus = new System.Windows.Forms.StatusStrip();
             this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.TSSLZoom = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.TSMI150 = new System.Windows.Forms.ToolStripMenuItem();
@@ -103,12 +102,13 @@ namespace LeggermenteIDE
             this.MainSplit = new System.Windows.Forms.SplitContainer();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.TWfiles = new System.Windows.Forms.TreeView();
-            this.RTBText = new LeggermenteIDE.RichTextBoxEx();
             this.CMSRTBText = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ouToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.tagliaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.copiaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.incollaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.salvaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openFD = new System.Windows.Forms.OpenFileDialog();
             this.saveFD = new System.Windows.Forms.SaveFileDialog();
@@ -119,6 +119,7 @@ namespace LeggermenteIDE
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.fontDialog = new System.Windows.Forms.FontDialog();
             this.FDB = new System.Windows.Forms.FolderBrowserDialog();
+            this.RTBText = new LeggermenteIDE.RichTextBoxEx();
             this.menuIcone.SuspendLayout();
             this.menuStringhe.SuspendLayout();
             this.SSstatus.SuspendLayout();
@@ -512,14 +513,14 @@ namespace LeggermenteIDE
             // programmaToolStripMenuItem
             // 
             this.programmaToolStripMenuItem.Name = "programmaToolStripMenuItem";
-            this.programmaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.programmaToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.programmaToolStripMenuItem.Text = "Programma";
             this.programmaToolStripMenuItem.Click += new System.EventHandler(this.tsbCompila_Click);
             // 
             // pacchettoToolStripMenuItem
             // 
             this.pacchettoToolStripMenuItem.Name = "pacchettoToolStripMenuItem";
-            this.pacchettoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.pacchettoToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.pacchettoToolStripMenuItem.Text = "Pacchetto";
             this.pacchettoToolStripMenuItem.Click += new System.EventHandler(this.pacchettoToolStripMenuItem_Click);
             // 
@@ -541,21 +542,21 @@ namespace LeggermenteIDE
             // fontToolStripMenuItem
             // 
             this.fontToolStripMenuItem.Name = "fontToolStripMenuItem";
-            this.fontToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.fontToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.fontToolStripMenuItem.Text = "&Font";
             this.fontToolStripMenuItem.Click += new System.EventHandler(this.fontToolStripMenuItem_Click);
             // 
             // coloreSfondoToolStripMenuItem
             // 
             this.coloreSfondoToolStripMenuItem.Name = "coloreSfondoToolStripMenuItem";
-            this.coloreSfondoToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.coloreSfondoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.coloreSfondoToolStripMenuItem.Text = "&Sfondo";
             this.coloreSfondoToolStripMenuItem.Click += new System.EventHandler(this.coloreSfondoToolStripMenuItem_Click);
             // 
             // coloreFontToolStripMenuItem
             // 
             this.coloreFontToolStripMenuItem.Name = "coloreFontToolStripMenuItem";
-            this.coloreFontToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.coloreFontToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.coloreFontToolStripMenuItem.Text = "Colore Font";
             this.coloreFontToolStripMenuItem.Click += new System.EventHandler(this.coloreFontToolStripMenuItem_Click);
             // 
@@ -610,7 +611,6 @@ namespace LeggermenteIDE
             // 
             this.SSstatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.StatusLabel,
-            this.toolStripProgressBar1,
             this.TSSLZoom,
             this.toolStripSplitButton1});
             this.SSstatus.Location = new System.Drawing.Point(0, 666);
@@ -624,11 +624,6 @@ namespace LeggermenteIDE
             this.StatusLabel.Name = "StatusLabel";
             this.StatusLabel.Size = new System.Drawing.Size(43, 17);
             this.StatusLabel.Text = "Pronto";
-            // 
-            // toolStripProgressBar1
-            // 
-            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
             // 
             // TSSLZoom
             // 
@@ -761,38 +756,18 @@ namespace LeggermenteIDE
             this.TWfiles.Size = new System.Drawing.Size(244, 467);
             this.TWfiles.TabIndex = 0;
             // 
-            // RTBText
-            // 
-            this.RTBText.BackColor = System.Drawing.SystemColors.Desktop;
-            this.RTBText.ContextMenuStrip = this.CMSRTBText;
-            this.RTBText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RTBText.ForeColor = System.Drawing.SystemColors.Info;
-            this.RTBText.Location = new System.Drawing.Point(0, 0);
-            this.RTBText.Name = "RTBText";
-            this.RTBText.NumberAlignment = System.Drawing.StringAlignment.Center;
-            this.RTBText.NumberBorder = System.Drawing.Color.Empty;
-            this.RTBText.NumberBorderThickness = 1F;
-            this.RTBText.NumberColor = System.Drawing.Color.DarkGray;
-            this.RTBText.NumberFont = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RTBText.NumberLeadingZeroes = false;
-            this.RTBText.NumberLineCounting = LeggermenteIDE.RichTextBoxEx.LineCounting.CRLF;
-            this.RTBText.NumberPadding = 2;
-            this.RTBText.ShowLineNumbers = true;
-            this.RTBText.Size = new System.Drawing.Size(481, 486);
-            this.RTBText.TabIndex = 0;
-            this.RTBText.Text = "|inserisci il tuo codice qui|";
-            this.RTBText.TextChanged += new System.EventHandler(this.RTBText_TextChanged);
-            // 
             // CMSRTBText
             // 
             this.CMSRTBText.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ouToolStripMenuItem,
+            this.toolStripSeparator10,
             this.tagliaToolStripMenuItem1,
             this.copiaToolStripMenuItem1,
             this.incollaToolStripMenuItem1,
+            this.toolStripSeparator11,
             this.salvaToolStripMenuItem1});
             this.CMSRTBText.Name = "CMSRTBText";
-            this.CMSRTBText.Size = new System.Drawing.Size(111, 114);
+            this.CMSRTBText.Size = new System.Drawing.Size(111, 126);
             // 
             // ouToolStripMenuItem
             // 
@@ -800,6 +775,11 @@ namespace LeggermenteIDE
             this.ouToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.ouToolStripMenuItem.Text = "Nuovo";
             this.ouToolStripMenuItem.Click += new System.EventHandler(this.nuovoToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            this.toolStripSeparator10.Size = new System.Drawing.Size(107, 6);
             // 
             // tagliaToolStripMenuItem1
             // 
@@ -821,6 +801,11 @@ namespace LeggermenteIDE
             this.incollaToolStripMenuItem1.Size = new System.Drawing.Size(110, 22);
             this.incollaToolStripMenuItem1.Text = "Incolla";
             this.incollaToolStripMenuItem1.Click += new System.EventHandler(this.incollaToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator11
+            // 
+            this.toolStripSeparator11.Name = "toolStripSeparator11";
+            this.toolStripSeparator11.Size = new System.Drawing.Size(107, 6);
             // 
             // salvaToolStripMenuItem1
             // 
@@ -880,6 +865,31 @@ namespace LeggermenteIDE
             this.RTBLog.TabIndex = 0;
             this.RTBLog.Text = "Nessun Errore... \nPer ora!   u.u";
             // 
+            // RTBText
+            // 
+            this.RTBText.AcceptsTab = true;
+            this.RTBText.BackColor = System.Drawing.SystemColors.Desktop;
+            this.RTBText.ContextMenuStrip = this.CMSRTBText;
+            this.RTBText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RTBText.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RTBText.ForeColor = System.Drawing.SystemColors.Info;
+            this.RTBText.Location = new System.Drawing.Point(0, 0);
+            this.RTBText.Name = "RTBText";
+            this.RTBText.NumberAlignment = System.Drawing.StringAlignment.Center;
+            this.RTBText.NumberBorder = System.Drawing.Color.Empty;
+            this.RTBText.NumberBorderThickness = 1F;
+            this.RTBText.NumberColor = System.Drawing.Color.DarkGray;
+            this.RTBText.NumberFont = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RTBText.NumberLeadingZeroes = false;
+            this.RTBText.NumberLineCounting = LeggermenteIDE.RichTextBoxEx.LineCounting.CRLF;
+            this.RTBText.NumberPadding = 2;
+            this.RTBText.ShowLineNumbers = true;
+            this.RTBText.Size = new System.Drawing.Size(481, 486);
+            this.RTBText.TabIndex = 0;
+            this.RTBText.Text = "|inserisci il tuo codice qui|";
+            this.RTBText.TextChanged += new System.EventHandler(this.RTBText_TextChanged);
+            this.RTBText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RTBText_KeyPress);
+            // 
             // FormBase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -912,7 +922,6 @@ namespace LeggermenteIDE
             this.ResumeLayout(false);
             this.PerformLayout();
 
-            ApplicaConfigurazioni();
         }
 
         #endregion
@@ -989,7 +998,6 @@ namespace LeggermenteIDE
         private System.Windows.Forms.ToolStripMenuItem opzioniToolStripMenuItem;
         private System.Windows.Forms.StatusStrip SSstatus;
         private System.Windows.Forms.ToolStripStatusLabel StatusLabel;
-        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.SplitContainer MainSplit;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TreeView TWfiles;
@@ -1040,6 +1048,8 @@ namespace LeggermenteIDE
         private System.Windows.Forms.ToolStripMenuItem programmaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pacchettoToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
     }
 }
 

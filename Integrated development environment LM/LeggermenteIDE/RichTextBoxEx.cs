@@ -344,7 +344,6 @@ namespace LeggermenteIDE
         {
             //System.Console.WriteLine(">> PaintLineNumbers");
             // To reduce flicker, double-buffer the output
-
             if (_paintingDisabled) return;
 
             int w = (LineNumberWidth) + 3;
@@ -712,8 +711,6 @@ namespace LeggermenteIDE
 
         #endregion
     }
-
-
 
     public static class Tuple
     {

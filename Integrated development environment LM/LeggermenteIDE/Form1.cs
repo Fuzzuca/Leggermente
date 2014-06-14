@@ -12,6 +12,7 @@ using System.IO;
 using LeggermenteIDE;
 using System.Drawing.Printing;
 using Leggermente.Translator;
+using System.DirectoryServices;
 
 
 namespace LeggermenteIDE
@@ -22,6 +23,7 @@ namespace LeggermenteIDE
         public FormBase()
         {
             InitializeComponent();
+            ApplicaConfigurazioni();
             size = RTBText.Font.Size;
         }
 
@@ -450,6 +452,31 @@ namespace LeggermenteIDE
             prev = Clone;                               //imposto il precendente
             TSSLZoom.Text = "Zoom: " + Clone.Text;      //modifico la stringa
         }//gestione zoom
+
+        private void RTBText_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '\t')
+            {
+                RTBText.SelectedText =  "   ";
+                RTBText.HideSelection = true;
+                e.KeyChar = ' ';
+            }
+            if (e.KeyChar == '\n' || e.KeyChar == '\r')
+            {
+                RefreshControl.SuspendDrawing(MainSplit);
+                string line = RTBText.Lines[RTBText.GetLineFromCharIndex(RTBText.SelectionStart)-1];
+                int lineln = line.Length;
+                line = line.Trim(' ');
+                int _lineln = line.Length;
+                int tabs = (lineln - _lineln)/4;
+                for (int i = 0; i < tabs; i++)
+                {
+                    RTBText.SelectedText = "    ";
+                    RTBText.HideSelection = true;
+                }
+                RefreshControl.ResumeDrawing(MainSplit);
+            }
+        }
 
         #endregion
 
