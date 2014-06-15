@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace Leggermente.Translator
+namespace Leggermente.Translator 
 {
     /// <summary>
     /// Classe che gestisce i pacchetti e la relativa esportazione

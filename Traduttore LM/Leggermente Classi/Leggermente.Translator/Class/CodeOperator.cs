@@ -217,10 +217,10 @@ namespace Leggermente.Translator
 
             do
             {
-                m = Regex.Match(RawCode, @"[ ,]\d+([.]?\d+)?(\^?\d+)?", RegexOptions.Singleline);
+                m = Regex.Match(RawCode, @"[ ,\+\*\/\-]\d+([.]?\d+)?(\^?\d+)?", RegexOptions.Singleline);
                 if (m.Success && m.Length > 0)
                 {
-                    ret.Add(new Variable("_num" + indexr.ToString(), m.Value.TrimStart(' ', ',')));
+                    ret.Add(new Variable("_num" + indexr.ToString(), m.Value.TrimStart(' ', ',','+','-','/','*')));
                     RawCode = RawCode.Remove(m.Index + 1, m.Length - 1);
                     RawCode = RawCode.Insert(m.Index + 1, "_num" + indexr.ToString());
                     indexr++;
@@ -351,7 +351,7 @@ namespace Leggermente.Translator
             CodeIndex[] ci;
             try
             {
-                ms = Regex.Matches(RawCode, @"#\s?\w+\s?(\([\w,\s]+\))?\s?\[[\s\S]*\]", RegexOptions.Singleline);
+                ms = Regex.Matches(RawCode, @"#\s?\w+\s?(\([\w,\s]+\))?\s?\[([^\[])+\]", RegexOptions.Singleline);
             }
             //catch (RegexMatchTimeoutException) { lm.Add("The translator was unable to find all the white space at the line start"); return null; }
             catch (ArgumentOutOfRangeException) { lm.Add("The translator had try to find all the white space at the line start but something gone wrong"); return null; }

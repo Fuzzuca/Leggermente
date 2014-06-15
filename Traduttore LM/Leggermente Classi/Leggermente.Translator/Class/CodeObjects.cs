@@ -330,36 +330,6 @@ namespace Leggermente.Translator
         }
 
         //Metodi statici
-        /// <summary>
-        /// Dato un codice ne estrae tutte le funzioni
-        /// </summary>
-        /// <param name="RawCode">Codice con funzioni</param>
-        /// <param name="lm">Gestore di messaggi</param>
-        /// <returns>Restituisce una collezione di Funzioni</returns>
-        static public FunctionCollection FindFunctionInCode(string RawCode, LogManager lm)
-        {
-            //FunctionCollection funcs = new FunctionCollection();    //Crea una collezione di funzioni
-            //Function sup;
-            //int lineNumber;
-
-            //MatchCollection matcs = Regex.Matches(RawCode, @"#(.*)\[", RegexOptions.Singleline);    //Estrae tutte le firme
-
-            //foreach (Match m in matcs)  //Per ogni firma
-            //{
-            //    lineNumber = RawCode.Substring(0, RawCode.IndexOf(m.Value)).Split('\n').Length + 1;    //Estrae il testo prima della firma e calcola il numero di linee
-            //    sup = Function.GetFunctionBySign(CodeCleaner.RemoveSpaceAndTab(m.Value, lm), lm, lineNumber);   //Estrae la funzione
-
-            //    if (sup != null && !funcs.Exist(sup)) funcs.Add(sup);  //Se la firma era valida e la funzione non è gia presente
-            //    else if (sup != null)   //Se la funzioen è già presente
-            //    {
-            //        lm.Add("The Function '" + sup.ToString() + "' was alredy read in the code", lineNumber);
-            //        return null;
-            //    }
-            //}
-
-            //return funcs;
-            return null;
-        }
     }
     #endregion
 
@@ -674,7 +644,7 @@ namespace Leggermente.Translator
                 }
                 return cc;
             }
-            else return null;
+            else return new CodeLineCollection();
         }
         /// <summary>
         /// Permette di estrarre una sottocollezione dalla collezione stessa
@@ -691,7 +661,7 @@ namespace Leggermente.Translator
         /// </summary>
         /// <param name="LineNumber">Numero di linea da cui partire (non compresa)</param>
         /// <returns>Lista a indentazione maggiore</returns>
-        public CodeLineCollection ExtractSubIndentation(int LineNumber)
+        public CodeLineCollection ExtractSubIndentation(int LineNumber, bool comprendi=false)
         {
             int indx = FindLine(LineNumber), i = 0;
 
@@ -699,6 +669,7 @@ namespace Leggermente.Translator
             {
                 CodeLineCollection clc = new CodeLineCollection();
                 i = indx + 1;
+                if (comprendi) clc.Add(this[indx]);
                 while (i < this.Count && this[indx].IndentLevel < this[i].IndentLevel)
                 {
                     clc.Add(this[i]);

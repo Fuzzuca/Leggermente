@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Leggermente.Translator
+namespace Leggermente.Translator 
 {
     /// <summary>
     /// Frammento di funzione nel codice

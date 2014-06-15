@@ -18,7 +18,6 @@ namespace Leggermente
 
             //Translator work
             Translator.Translator traduttore = new Translator.Translator();
-
             string file = File.ReadAllText("../../../../Examples/massimo3.lm", Encoding.UTF8);
             string[] package = new string[2];
             package[1] = "../../../../Examples/MATE.lmp";
@@ -27,10 +26,10 @@ namespace Leggermente
 
 
             ResultCode result = traduttore.Translate(CodeType.Program, file, package, "");
-            if (traduttore.ErrorManager.WithOutError) Console.Write(result.ToString());
-            else for (int i = 0; i < traduttore.ErrorManager.LogList.Length; i++) Console.WriteLine(traduttore.ErrorManager.LogList[i]);
 
             Directory.Delete("./temp", true);
+            if (traduttore.ErrorManager.WithOutError) Console.Write(result.ToString());
+            else for (int i = 0; i < traduttore.ErrorManager.LogList.Length; i++) Console.WriteLine(traduttore.ErrorManager.LogList[i]);
             Console.ReadKey();
         }
     }

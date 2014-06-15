@@ -5,8 +5,19 @@
 	crea num1 a MATE.random di 0,10
 	crea num2 a MATE.random di 0,10
 	crea num3 a MATE.random di 0,10
+	cambia num1 a num2
 	
-	se num1 maggiore num2
+	controlla num1
+		se maggiore 1+2
+			schermo 
+		se uguale 6/3
+			schermo
+		altrimenti	
+			altro num1
+]
+
+#altro(questo)[
+	|se num1 maggiore num2
 		se num1 maggiore num3
 			schermo "Il massimo è "+num1
 	    altrimenti
@@ -16,5 +27,5 @@
 			schermo "Il massimo è "+num2
 		altrimenti
 			schermo "Il massimo è "+num3
-			
+	|	
 ]

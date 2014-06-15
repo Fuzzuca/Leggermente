@@ -77,7 +77,10 @@ namespace Leggermente.Translator
         //Metodi privati
         public void Parsing(CodeImage ci, ResultCode res)
         {
-            ParserFunction parser = new ParserFunction(ci.Constant, ci.Package, res, lm);
+            FunctionCollection fc = new FunctionCollection();
+            for (int i = 0; i < ci.Section.Count; i++) fc.Add(ci.Section[i].Function);
+
+            ParserFunction parser = new ParserFunction(ci.Constant, fc, ci.Package, res, lm);
 
             for (int i = 0; i < ci.Section.Count; i++) parser.AnalyzeFunction(ci.Section[i]);
         }

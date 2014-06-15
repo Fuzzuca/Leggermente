@@ -9,7 +9,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using Ionic.Zip;
 
-namespace Leggermente.Translator
+namespace Leggermente.Translator 
 {
     /// <summary>
     /// Gestisce la configurazione su un file INI

@@ -10,9 +10,18 @@ C:\Users\Fuzzuca\Documents\GitHub\Leggermente\Traduttore LM\Leggermente Classi\L
 C:\Users\Fuzzuca\Documents\GitHub\Leggermente\Traduttore LM\Leggermente Classi\Leggermente.Translator\obj\Debug\Leggermente.Translator.csprojResolveAssemblyReference.cache
 C:\Users\Fuzzuca\Documents\GitHub\Leggermente\Traduttore LM\Leggermente Classi\Leggermente.Translator\obj\Debug\Leggermente.Translator.dll
 C:\Users\Fuzzuca\Documents\GitHub\Leggermente\Traduttore LM\Leggermente Classi\Leggermente.Translator\obj\Debug\Leggermente.Translator.pdb
+<<<<<<< HEAD
+C:\Users\Fuzzuca\Desktop\Traduttore LM\Leggermente Classi\Leggermente.Translator\bin\Debug\Leggermente.Translator.dll
+C:\Users\Fuzzuca\Desktop\Traduttore LM\Leggermente Classi\Leggermente.Translator\bin\Debug\Leggermente.Translator.pdb
+C:\Users\Fuzzuca\Desktop\Traduttore LM\Leggermente Classi\Leggermente.Translator\bin\Debug\Ionic.Zip.dll
+C:\Users\Fuzzuca\Desktop\Traduttore LM\Leggermente Classi\Leggermente.Translator\obj\Debug\Leggermente.Translator.csprojResolveAssemblyReference.cache
+C:\Users\Fuzzuca\Desktop\Traduttore LM\Leggermente Classi\Leggermente.Translator\obj\Debug\Leggermente.Translator.dll
+C:\Users\Fuzzuca\Desktop\Traduttore LM\Leggermente Classi\Leggermente.Translator\obj\Debug\Leggermente.Translator.pdb
+=======
 C:\Users\Quaka\Documents\GitHub\Leggermente\Traduttore LM\Leggermente Classi\Leggermente.Translator\bin\Debug\Leggermente.Translator.dll
 C:\Users\Quaka\Documents\GitHub\Leggermente\Traduttore LM\Leggermente Classi\Leggermente.Translator\bin\Debug\Leggermente.Translator.pdb
 C:\Users\Quaka\Documents\GitHub\Leggermente\Traduttore LM\Leggermente Classi\Leggermente.Translator\bin\Debug\Ionic.Zip.dll
 C:\Users\Quaka\Documents\GitHub\Leggermente\Traduttore LM\Leggermente Classi\Leggermente.Translator\obj\Debug\Leggermente.Translator.csprojResolveAssemblyReference.cache
 C:\Users\Quaka\Documents\GitHub\Leggermente\Traduttore LM\Leggermente Classi\Leggermente.Translator\obj\Debug\Leggermente.Translator.dll
 C:\Users\Quaka\Documents\GitHub\Leggermente\Traduttore LM\Leggermente Classi\Leggermente.Translator\obj\Debug\Leggermente.Translator.pdb
+>>>>>>> origin/master

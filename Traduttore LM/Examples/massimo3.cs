@@ -7,7 +7,7 @@ using LeggerMente.MATE;
 
 namespace TreNumeri
 {
-    class Programma
+    class Programma 
     {
         static void Main(string[] args)
         {
