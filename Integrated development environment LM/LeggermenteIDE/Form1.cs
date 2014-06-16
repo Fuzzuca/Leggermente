@@ -25,6 +25,7 @@ namespace LeggermenteIDE
             InitializeComponent();
             ApplicaConfigurazioni();
             size = RTBText.Font.Size;
+            PopulateTreeView();
         }
 
         #region Variabili Private
@@ -58,6 +59,7 @@ namespace LeggermenteIDE
                     if (ret)
                     {
                         path = saveFD.FileName; //designo il path
+                        PopulateTreeView();
                     }
                     return ret;
                 }
@@ -91,7 +93,7 @@ namespace LeggermenteIDE
             //se il path non rispetta gli standard necessari
             catch (NotSupportedException) { MessageBox.Show("Non Supportato"); return false; }
             #endregion
-            MessageBox.Show("Salvataggio Riuscito");
+            StatusLabel.Text = "Salvato";
             return true;
         }
 
@@ -144,6 +146,63 @@ namespace LeggermenteIDE
             PrintBrush.Dispose();
         }
 
+        private void PopulateTreeView()
+        {
+            if(TWfiles.Nodes.Count > 0)
+            TWfiles.Nodes.RemoveAt(0);
+            TreeNode rootNode;
+            if (path != "" && path != null)
+            {
+                string[] _path = path.Split('\\');
+                string nPath = "";
+                for (int i = 0; i < _path.Length - 1; i++)
+                {
+                    nPath += _path[i];
+                    nPath += '\\';
+                }
+                DirectoryInfo info = new DirectoryInfo(nPath);
+                if (info.Exists)
+                {
+                    rootNode = new TreeNode(info.Name);
+                    rootNode.Tag = info;
+                    GetDirectories(info.GetDirectories(), rootNode);
+                    TWfiles.Nodes.Add(rootNode);
+                }
+            }
+            else 
+            {
+                TWfiles.Nodes.Add("Salva il file");
+            }
+        }
+
+        private void GetDirectories(DirectoryInfo[] subDirs,TreeNode nodeToAddTo)
+        {
+            bool catched = false;
+            TreeNode aNode;
+            DirectoryInfo[] subSubDirs;
+            foreach (DirectoryInfo subDir in subDirs)
+            {
+                aNode = new TreeNode(subDir.Name, 0, 0);
+                aNode.Tag = subDir;
+                aNode.ImageKey = "folder";
+                try
+                {
+                    subSubDirs = subDir.GetDirectories();
+                    if (subSubDirs.Length != 0)
+                    {
+                        GetDirectories(subSubDirs, aNode);
+                    }
+                    nodeToAddTo.Nodes.Add(aNode);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    if (!catched)
+                    MessageBox.Show("Non tutte le cartelle sono accessibili");
+                    catched = true;
+                }
+            }
+        }
+
         #endregion
 
         #region Gestione Eventi Form
@@ -190,6 +249,7 @@ namespace LeggermenteIDE
                     ControlloInChiusura();
                     RTBText.Lines = File.ReadAllLines(openFD.FileName);
                     path = openFD.FileName;
+                    PopulateTreeView();
                 }
                 #region Catches
                 catch (OperationCanceledException) { return; }
@@ -434,9 +494,12 @@ namespace LeggermenteIDE
             if (!annullaToolStripMenuItem.Enabled) //attivo il bottone annulla
                 annullaToolStripMenuItem.Enabled = true;
 
-            
+
             if (!flag_modified)
+            {
                 flag_modified = true;
+                StatusLabel.Text = "Non Salvato";
+            }
             RefreshControl.ResumeDrawing(MainSplit);
         }//Modifica Testo
 
@@ -476,6 +539,39 @@ namespace LeggermenteIDE
                 }
                 RefreshControl.ResumeDrawing(MainSplit);
             }
+        }
+
+        void treeView1_NodeMouseClick(object sender,TreeNodeMouseClickEventArgs e)
+        {
+            TreeNode newSelected = e.Node;
+            listView1.Items.Clear();
+            DirectoryInfo nodeDirInfo = (DirectoryInfo)newSelected.Tag;
+            ListViewItem.ListViewSubItem[] subItems;
+            ListViewItem item = null;
+
+            foreach (DirectoryInfo dir in nodeDirInfo.GetDirectories())
+            {
+                item = new ListViewItem(dir.Name, 0);
+                subItems = new ListViewItem.ListViewSubItem[]
+                    {new ListViewItem.ListViewSubItem(item, "Directory"), 
+                     new ListViewItem.ListViewSubItem(item, 
+						dir.LastAccessTime.ToShortDateString())};
+                item.SubItems.AddRange(subItems);
+                listView1.Items.Add(item);
+            }
+            foreach (FileInfo file in nodeDirInfo.GetFiles())
+            {
+                item = new ListViewItem(file.Name, 1);
+                subItems = new ListViewItem.ListViewSubItem[]
+                    { new ListViewItem.ListViewSubItem(item, "File"), 
+                     new ListViewItem.ListViewSubItem(item, 
+						file.LastAccessTime.ToShortDateString())};
+
+                item.SubItems.AddRange(subItems);
+                listView1.Items.Add(item);
+            }
+
+            listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
 
         #endregion

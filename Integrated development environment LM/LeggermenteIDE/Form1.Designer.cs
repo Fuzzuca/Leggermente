@@ -119,6 +119,7 @@ namespace LeggermenteIDE
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.fontDialog = new System.Windows.Forms.FontDialog();
             this.FDB = new System.Windows.Forms.FolderBrowserDialog();
+            this.listView1 = new System.Windows.Forms.ListView();
             this.RTBText = new LeggermenteIDE.RichTextBoxEx();
             this.menuIcone.SuspendLayout();
             this.menuStringhe.SuspendLayout();
@@ -507,7 +508,7 @@ namespace LeggermenteIDE
             this.programmaToolStripMenuItem,
             this.pacchettoToolStripMenuItem});
             this.compilaToolStripMenuItem.Name = "compilaToolStripMenuItem";
-            this.compilaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.compilaToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.compilaToolStripMenuItem.Text = "&Compila";
             // 
             // programmaToolStripMenuItem
@@ -527,7 +528,7 @@ namespace LeggermenteIDE
             // toolStripSeparator9
             // 
             this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator9.Size = new System.Drawing.Size(135, 6);
             // 
             // personalizzaToolStripMenuItem
             // 
@@ -536,34 +537,34 @@ namespace LeggermenteIDE
             this.coloreSfondoToolStripMenuItem,
             this.coloreFontToolStripMenuItem});
             this.personalizzaToolStripMenuItem.Name = "personalizzaToolStripMenuItem";
-            this.personalizzaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.personalizzaToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.personalizzaToolStripMenuItem.Text = "&Personalizza";
             // 
             // fontToolStripMenuItem
             // 
             this.fontToolStripMenuItem.Name = "fontToolStripMenuItem";
-            this.fontToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fontToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.fontToolStripMenuItem.Text = "&Font";
             this.fontToolStripMenuItem.Click += new System.EventHandler(this.fontToolStripMenuItem_Click);
             // 
             // coloreSfondoToolStripMenuItem
             // 
             this.coloreSfondoToolStripMenuItem.Name = "coloreSfondoToolStripMenuItem";
-            this.coloreSfondoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.coloreSfondoToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.coloreSfondoToolStripMenuItem.Text = "&Sfondo";
             this.coloreSfondoToolStripMenuItem.Click += new System.EventHandler(this.coloreSfondoToolStripMenuItem_Click);
             // 
             // coloreFontToolStripMenuItem
             // 
             this.coloreFontToolStripMenuItem.Name = "coloreFontToolStripMenuItem";
-            this.coloreFontToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.coloreFontToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.coloreFontToolStripMenuItem.Text = "Colore Font";
             this.coloreFontToolStripMenuItem.Click += new System.EventHandler(this.coloreFontToolStripMenuItem_Click);
             // 
             // opzioniToolStripMenuItem
             // 
             this.opzioniToolStripMenuItem.Name = "opzioniToolStripMenuItem";
-            this.opzioniToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.opzioniToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.opzioniToolStripMenuItem.Text = "&Opzioni";
             // 
             // ToolStripMenuItem
@@ -739,6 +740,7 @@ namespace LeggermenteIDE
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.listView1);
             this.groupBox1.Controls.Add(this.TWfiles);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
@@ -750,11 +752,12 @@ namespace LeggermenteIDE
             // 
             // TWfiles
             // 
-            this.TWfiles.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TWfiles.Dock = System.Windows.Forms.DockStyle.Top;
             this.TWfiles.Location = new System.Drawing.Point(3, 16);
             this.TWfiles.Name = "TWfiles";
-            this.TWfiles.Size = new System.Drawing.Size(244, 467);
+            this.TWfiles.Size = new System.Drawing.Size(244, 275);
             this.TWfiles.TabIndex = 0;
+            this.TWfiles.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
             // 
             // CMSRTBText
             // 
@@ -863,7 +866,17 @@ namespace LeggermenteIDE
             this.RTBLog.ReadOnly = true;
             this.RTBLog.Size = new System.Drawing.Size(726, 108);
             this.RTBLog.TabIndex = 0;
-            this.RTBLog.Text = "Nessun Errore... \nPer ora!   u.u";
+            this.RTBLog.Text = "Nessun Errore...";
+            // 
+            // listView1
+            // 
+            this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView1.Location = new System.Drawing.Point(3, 291);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(244, 192);
+            this.listView1.TabIndex = 1;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.SmallIcon;
             // 
             // RTBText
             // 
@@ -1050,6 +1063,7 @@ namespace LeggermenteIDE
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
+        private System.Windows.Forms.ListView listView1;
     }
 }
 

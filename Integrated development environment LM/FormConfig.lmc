@@ -4,4 +4,6 @@
 
 
 
-=Arial;12,4
+FontFamily=Courier New;8,25
+BgColor=0;0;0
+ForeColor=255;255;255
