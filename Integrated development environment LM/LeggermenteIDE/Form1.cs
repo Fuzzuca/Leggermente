@@ -1,31 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.IO;
-using LeggermenteIDE;
 using System.Drawing.Printing;
-using Leggermente.Translator;
 using System.DirectoryServices;
-
+using System.Runtime.InteropServices;
+using Leggermente.Translator;
+using LeggermenteIDE;
 
 namespace LeggermenteIDE
 {
     public partial class FormBase : Form
     {
-
         public FormBase()
         {
             InitializeComponent();
             ApplicaConfigurazioni();
             size = RTBText.Font.Size;
-            PopulateTreeView();
+            FormFunctions.PopulateTreeView(TWfiles,FileName);
         }
 
         #region Variabili Private
@@ -36,174 +31,11 @@ namespace LeggermenteIDE
         private bool flag_saved = false;
         private int FileExplorerSize;
         private int ErrorConsoleSize;
-        private string path;
+        private string FileName;
         List<ColorConfig> color;
 
         #endregion
 
-        #region Metodi
-
-        private bool Salva(string[] lines)
-        {
-            if (lines == null)              //controllo il contenuto
-                return false;
-            if (flag_saved)                 //se già precendentemente salvato salvo nel path designato.
-            { return ScriviSuFile(path, lines); }
-            else                            // altrimenti chiedo dove salvare
-            {
-                if (saveFD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-
-                    bool ret;
-                    ret = ScriviSuFile(saveFD.FileName, lines);
-                    if (ret)
-                    {
-                        path = saveFD.FileName; //designo il path
-                        PopulateTreeView();
-                    }
-                    return ret;
-                }
-                MessageBox.Show("Salvataggio Annullato");
-                flag_saved = true;          //imposto come Salvato
-                return false;
-            }
-        }
-
-        private bool ScriviSuFile(string path, string[] lines)
-        {
-            try
-            {
-                File.WriteAllLines(path, lines);        //provo a scrivere
-            }
-            // tutti le gestioni delle eccezioni più probabili.
-            #region Catches
-            //se non esiste la cartella (collegamenti a chiavette rimosse etc.)
-            catch (DirectoryNotFoundException)
-            {
-                flag_saved = false;
-                if (MessageBox.Show("La Cartella Desisderata Non Esiste.\nVuoi Salvare altrove?", "Exception Found", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    Salva(lines);
-                return false;
-            }
-            //se l'accesso è negato
-            catch (System.UnauthorizedAccessException) { MessageBox.Show("Non si Dispongono i Diritti per Scrivere in Questa Cartella"); return false; }
-            catch (System.Security.SecurityException) { MessageBox.Show("Non si Dispongono i Diritti per Scrivere in Questa Cartella"); return false; }
-            //se si fallisce la scrittura
-            catch (IOException) { MessageBox.Show("Errore in Fase di Scrittura"); return false; }
-            //se il path non rispetta gli standard necessari
-            catch (NotSupportedException) { MessageBox.Show("Non Supportato"); return false; }
-            #endregion
-            StatusLabel.Text = "Salvato";
-            return true;
-        }
-
-        private void ControlloInChiusura()
-        {
-            if (flag_modified)
-            {
-                System.Windows.Forms.DialogResult mboxres;
-                mboxres = MessageBox.Show("Vuoi Salvare?", "File non Salvato", MessageBoxButtons.YesNoCancel);
-                if (mboxres == System.Windows.Forms.DialogResult.Yes)
-                {
-                    Salva(RTBText.Lines);
-                }
-                else if (mboxres == System.Windows.Forms.DialogResult.Cancel)
-                {
-                    throw new OperationCanceledException("Operazione annullata");
-                }
-            }
-        }
-
-        private void DocumentToPrint_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
-        {
-            StringReader reader = new StringReader(RTBText.Text);
-            float LinesPerPage = 0;
-            float YPosition = 0;
-            int Count = 0;
-            float LeftMargin = e.MarginBounds.Left;
-            float TopMargin = e.MarginBounds.Top;
-            string Line = null;
-            Font PrintFont = this.RTBText.Font;
-            SolidBrush PrintBrush = new SolidBrush(Color.Black);
-
-            LinesPerPage = e.MarginBounds.Height / PrintFont.GetHeight(e.Graphics);
-
-            while (Count < LinesPerPage && ((Line = reader.ReadLine()) != null))
-            {
-                YPosition = TopMargin + (Count * PrintFont.GetHeight(e.Graphics));
-                e.Graphics.DrawString(Line, PrintFont, PrintBrush, LeftMargin, YPosition, new StringFormat());
-                Count++;
-            }
-
-            if (Line != null)
-            {
-                e.HasMorePages = true;
-            }
-            else
-            {
-                e.HasMorePages = false;
-            }
-            PrintBrush.Dispose();
-        }
-
-        private void PopulateTreeView()
-        {
-            if(TWfiles.Nodes.Count > 0)
-            TWfiles.Nodes.RemoveAt(0);
-            TreeNode rootNode;
-            if (path != "" && path != null)
-            {
-                string[] _path = path.Split('\\');
-                string nPath = "";
-                for (int i = 0; i < _path.Length - 1; i++)
-                {
-                    nPath += _path[i];
-                    nPath += '\\';
-                }
-                DirectoryInfo info = new DirectoryInfo(nPath);
-                if (info.Exists)
-                {
-                    rootNode = new TreeNode(info.Name);
-                    rootNode.Tag = info;
-                    GetDirectories(info.GetDirectories(), rootNode);
-                    TWfiles.Nodes.Add(rootNode);
-                }
-            }
-            else 
-            {
-                TWfiles.Nodes.Add("Salva il file");
-            }
-        }
-
-        private void GetDirectories(DirectoryInfo[] subDirs,TreeNode nodeToAddTo)
-        {
-            bool catched = false;
-            TreeNode aNode;
-            DirectoryInfo[] subSubDirs;
-            foreach (DirectoryInfo subDir in subDirs)
-            {
-                aNode = new TreeNode(subDir.Name, 0, 0);
-                aNode.Tag = subDir;
-                aNode.ImageKey = "folder";
-                try
-                {
-                    subSubDirs = subDir.GetDirectories();
-                    if (subSubDirs.Length != 0)
-                    {
-                        GetDirectories(subSubDirs, aNode);
-                    }
-                    nodeToAddTo.Nodes.Add(aNode);
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    if (!catched)
-                    MessageBox.Show("Non tutte le cartelle sono accessibili");
-                    catched = true;
-                }
-            }
-        }
-
-        #endregion
 
         #region Gestione Eventi Form
 
@@ -215,7 +47,7 @@ namespace LeggermenteIDE
         {
             try
             {
-                ControlloInChiusura();
+                FormFunctions.ControlloInChiusura(flag_modified,RTBText,FileName,flag_saved);
             }
             catch (OperationCanceledException) { return; };
             flag_modified = false;
@@ -225,13 +57,13 @@ namespace LeggermenteIDE
 
         private void salvaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Salva(RTBText.Lines);
+            FormFunctions.Salva(RTBText.Lines,FileName,flag_saved);
         }
 
         private void salvaconnomeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             flag_saved = false;
-            Salva(RTBText.Lines);
+            FormFunctions.Salva(RTBText.Lines, FileName, flag_saved);
         }
 
         private void esciToolStripMenuItem_Click(object sender, EventArgs e)
@@ -246,10 +78,10 @@ namespace LeggermenteIDE
 
                 try
                 {
-                    ControlloInChiusura();
+                    FormFunctions.ControlloInChiusura(flag_modified, RTBText, FileName, flag_saved);
                     RTBText.Lines = File.ReadAllLines(openFD.FileName);
-                    path = openFD.FileName;
-                    PopulateTreeView();
+                    FileName = openFD.FileName;
+                    FormFunctions.PopulateTreeView(TWfiles,FileName);
                 }
                 #region Catches
                 catch (OperationCanceledException) { return; }
@@ -282,6 +114,38 @@ namespace LeggermenteIDE
                 documentToPrint.PrintPage += new PrintPageEventHandler(DocumentToPrint_PrintPage);
                 documentToPrint.Print();
             }
+        }
+
+        private void DocumentToPrint_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            StringReader reader = new StringReader(RTBText.Text);
+            float LinesPerPage = 0;
+            float YPosition = 0;
+            int Count = 0;
+            float LeftMargin = e.MarginBounds.Left;
+            float TopMargin = e.MarginBounds.Top;
+            string Line = null;
+            Font PrintFont = RTBText.Font;
+            SolidBrush PrintBrush = new SolidBrush(Color.Black);
+
+            LinesPerPage = e.MarginBounds.Height / PrintFont.GetHeight(e.Graphics);
+
+            while (Count < LinesPerPage && ((Line = reader.ReadLine()) != null))
+            {
+                YPosition = TopMargin + (Count * PrintFont.GetHeight(e.Graphics));
+                e.Graphics.DrawString(Line, PrintFont, PrintBrush, LeftMargin, YPosition, new StringFormat());
+                Count++;
+            }
+
+            if (Line != null)
+            {
+                e.HasMorePages = true;
+            }
+            else
+            {
+                e.HasMorePages = false;
+            }
+            PrintBrush.Dispose();
         }
 
         #endregion
@@ -407,6 +271,8 @@ namespace LeggermenteIDE
 
         private void tsbCompila_Click(object sender, EventArgs e)
         {
+            if (flag_saved == false || flag_modified == true)
+                FormFunctions.Salva(RTBText.Lines, FileName, flag_saved);
             LogManager errori = new LogManager();
             Translator traduttore = new Translator(errori);
             string[] pacccccccchetttttttu;
@@ -466,7 +332,7 @@ namespace LeggermenteIDE
         {
             try
             {
-                ControlloInChiusura();
+                FormFunctions.ControlloInChiusura(flag_modified, RTBText, FileName, flag_saved);
             }
             catch (OperationCanceledException) { e.Cancel = true; }
         }//chiusura form

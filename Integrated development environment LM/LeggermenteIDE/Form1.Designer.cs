@@ -101,7 +101,9 @@ namespace LeggermenteIDE
             this.TSMI50 = new System.Windows.Forms.ToolStripMenuItem();
             this.MainSplit = new System.Windows.Forms.SplitContainer();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.listView1 = new System.Windows.Forms.ListView();
             this.TWfiles = new System.Windows.Forms.TreeView();
+            this.RTBText = new LeggermenteIDE.RichTextBoxEx();
             this.CMSRTBText = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ouToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
@@ -119,8 +121,6 @@ namespace LeggermenteIDE
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.fontDialog = new System.Windows.Forms.FontDialog();
             this.FDB = new System.Windows.Forms.FolderBrowserDialog();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.RTBText = new LeggermenteIDE.RichTextBoxEx();
             this.menuIcone.SuspendLayout();
             this.menuStringhe.SuspendLayout();
             this.SSstatus.SuspendLayout();
@@ -750,6 +750,16 @@ namespace LeggermenteIDE
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Files";
             // 
+            // listView1
+            // 
+            this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView1.Location = new System.Drawing.Point(3, 291);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(244, 192);
+            this.listView1.TabIndex = 1;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.SmallIcon;
+            // 
             // TWfiles
             // 
             this.TWfiles.Dock = System.Windows.Forms.DockStyle.Top;
@@ -758,6 +768,31 @@ namespace LeggermenteIDE
             this.TWfiles.Size = new System.Drawing.Size(244, 275);
             this.TWfiles.TabIndex = 0;
             this.TWfiles.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
+            // 
+            // RTBText
+            // 
+            this.RTBText.AcceptsTab = true;
+            this.RTBText.BackColor = System.Drawing.SystemColors.Desktop;
+            this.RTBText.ContextMenuStrip = this.CMSRTBText;
+            this.RTBText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RTBText.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RTBText.ForeColor = System.Drawing.SystemColors.Info;
+            this.RTBText.Location = new System.Drawing.Point(0, 0);
+            this.RTBText.Name = "RTBText";
+            this.RTBText.NumberAlignment = System.Drawing.StringAlignment.Center;
+            this.RTBText.NumberBorder = System.Drawing.Color.Empty;
+            this.RTBText.NumberBorderThickness = 1F;
+            this.RTBText.NumberColor = System.Drawing.Color.DarkGray;
+            this.RTBText.NumberFont = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RTBText.NumberLeadingZeroes = false;
+            this.RTBText.NumberLineCounting = LeggermenteIDE.RichTextBoxEx.LineCounting.CRLF;
+            this.RTBText.NumberPadding = 2;
+            this.RTBText.ShowLineNumbers = true;
+            this.RTBText.Size = new System.Drawing.Size(481, 486);
+            this.RTBText.TabIndex = 0;
+            this.RTBText.Text = "|inserisci il tuo codice qui|";
+            this.RTBText.TextChanged += new System.EventHandler(this.RTBText_TextChanged);
+            this.RTBText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RTBText_KeyPress);
             // 
             // CMSRTBText
             // 
@@ -867,41 +902,6 @@ namespace LeggermenteIDE
             this.RTBLog.Size = new System.Drawing.Size(726, 108);
             this.RTBLog.TabIndex = 0;
             this.RTBLog.Text = "Nessun Errore...";
-            // 
-            // listView1
-            // 
-            this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView1.Location = new System.Drawing.Point(3, 291);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(244, 192);
-            this.listView1.TabIndex = 1;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.SmallIcon;
-            // 
-            // RTBText
-            // 
-            this.RTBText.AcceptsTab = true;
-            this.RTBText.BackColor = System.Drawing.SystemColors.Desktop;
-            this.RTBText.ContextMenuStrip = this.CMSRTBText;
-            this.RTBText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RTBText.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RTBText.ForeColor = System.Drawing.SystemColors.Info;
-            this.RTBText.Location = new System.Drawing.Point(0, 0);
-            this.RTBText.Name = "RTBText";
-            this.RTBText.NumberAlignment = System.Drawing.StringAlignment.Center;
-            this.RTBText.NumberBorder = System.Drawing.Color.Empty;
-            this.RTBText.NumberBorderThickness = 1F;
-            this.RTBText.NumberColor = System.Drawing.Color.DarkGray;
-            this.RTBText.NumberFont = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RTBText.NumberLeadingZeroes = false;
-            this.RTBText.NumberLineCounting = LeggermenteIDE.RichTextBoxEx.LineCounting.CRLF;
-            this.RTBText.NumberPadding = 2;
-            this.RTBText.ShowLineNumbers = true;
-            this.RTBText.Size = new System.Drawing.Size(481, 486);
-            this.RTBText.TabIndex = 0;
-            this.RTBText.Text = "|inserisci il tuo codice qui|";
-            this.RTBText.TextChanged += new System.EventHandler(this.RTBText_TextChanged);
-            this.RTBText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RTBText_KeyPress);
             // 
             // FormBase
             // 
