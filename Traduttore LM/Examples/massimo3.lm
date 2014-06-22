@@ -1,6 +1,6 @@
-﻿aggiungi MATE
+﻿aggiungi MATE 
 
-#programma
+#programma 
 [
 	crea num1 a MATE.random di 0,10
 	crea num2 a MATE.random di 0,10

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Leggermente.Translator 
+namespace Leggermente.Translator
 {
     /// <summary>
     /// Maniglia per la gestione dell'evento ERRORE CRITICO implementato nelle varie classi

@@ -1,4 +1,4 @@
-Progetto - Traduttore "Leggermente"
+Progetto - Traduttore "Leggermente" 
 ===========
 
 Sistema di conversione da Leggermente a C# 

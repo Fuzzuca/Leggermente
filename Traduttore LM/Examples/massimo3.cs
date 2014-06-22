@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LeggerMente.MATE;
 
-namespace TreNumeri
+namespace TreNumeri 
 {
     class Programma 
     {
