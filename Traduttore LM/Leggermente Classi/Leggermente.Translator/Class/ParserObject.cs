@@ -42,7 +42,7 @@ namespace Leggermente.Translator
                 if (Regex.IsMatch(fs.FunctionCodes[i].Code, @"ritorna", RegexOptions.IgnoreCase)) findReturn = true;
             }
             if (!findReturn && fs.Function.Name.ToLower() != "programma") res.AddLine("\treturn new Variable(\"NULL\",null);", lm);
-            
+
 
             res.AddLine("}", lm);
         }
@@ -72,12 +72,12 @@ namespace Leggermente.Translator
         {
             if (cc != null && cc.Count > 0)
             {
-                if (Regex.IsMatch(cc[0].Code, @"crea (vettore )?[a-z][\w]* [\w\W]+", RegexOptions.IgnoreCase))
+                if (Regex.IsMatch(cc[0].Code, @"crea (vettore )?[a-z][\w]*(\s?\([\w\W]+\))* [\w\W]+", RegexOptions.IgnoreCase))
                 {
                     CreateVariable(cc[0]);
                     AnalyzeCodeLines(cc.Extractor(1));
                 }
-                else if (Regex.IsMatch(cc[0].Code, @"cambia [a-z][\w]* [\w\W]+", RegexOptions.IgnoreCase))
+                else if (Regex.IsMatch(cc[0].Code, @"cambia [a-z][\w]*(\s?\([\w\W]+\))* [\w\W]+", RegexOptions.IgnoreCase))
                 {
                     ChangeVariable(cc[0]);
                     AnalyzeCodeLines(cc.Extractor(1));
@@ -92,7 +92,7 @@ namespace Leggermente.Translator
                 }
                 else if (Regex.IsMatch(cc[0].Code, @"controlla [\W\w]+", RegexOptions.IgnoreCase))
                 {
-					AnalyzeCodeLines(cc.Extractor(SwitchAction(cc.ExtractSubIndentation(cc[0].LineNumber,true))));
+                    AnalyzeCodeLines(cc.Extractor(SwitchAction(cc.ExtractSubIndentation(cc[0].LineNumber, true))));
                 }
                 else if (Regex.IsMatch(cc[0].Code, @"ripeti quando [\w\W]+", RegexOptions.IgnoreCase))
                 {
@@ -101,17 +101,13 @@ namespace Leggermente.Translator
                 else if (Regex.IsMatch(cc[0].Code, @"ripeti [\w\W]+ volte", RegexOptions.IgnoreCase))
                 {
                     AnalyzeCodeLines(cc.Extractor(ForAction(cc.ExtractSubIndentation(cc[0].LineNumber, true))));
-
-
-                    /*if (Regex.IsMatch(cc[0].Code, @"ripeti [\w\W]+ volte [a-zA-Z][\w]*", RegexOptions.IgnoreCase))
-                    {
-                    }*/
                 }
                 else if (Regex.IsMatch(cc[0].Code, @"ripeti", RegexOptions.IgnoreCase))
                 {
-                    /*if (Regex.IsMatch(cc[0].Code, @"quando [\w\W]+", RegexOptions.IgnoreCase))
-                    {
-                    }*/
+                    CodeLineCollection sup = cc.ExtractSubIndentation(cc[0].LineNumber, true);
+                    sup.Add(cc.Extractor(sup.Count)[0]);
+
+                    AnalyzeCodeLines(cc.Extractor(DoWhile(sup)));
                 }
                 else if (Regex.IsMatch(cc[0].Code, @"ritorna [\w\W]+", RegexOptions.IgnoreCase))
                 {
@@ -133,14 +129,14 @@ namespace Leggermente.Translator
             string[] ret = cl.Code.Split(' ');
             string code = cl.Code;
 
-            if (Regex.IsMatch(cl.Code, @"crea vettore [a-z][\w]+ [\w\W]+", RegexOptions.IgnoreCase))
+            if (Regex.IsMatch(cl.Code, @"crea vettore [a-z][\w]*(\s?\([\w\W]+\))* [\w\W]+", RegexOptions.IgnoreCase))
             {
                 vc.Add(new Variable(ret[2], 0));
 
                 code = code.Remove(0, ret[0].Length + ret[1].Length + ret[2].Length + 2).Trim();
                 res.AddLine(Tabul(cl.IndentLevel) + "Variable " + ret[2] + " = new Variable(\"" + ret[2] + "\"," + AnalyzeCode(code, cl.LineNumber) + ");", lm);
             }
-            else if (Regex.IsMatch(cl.Code, @"crea [a-z][\w]+ [\w\W]+", RegexOptions.IgnoreCase))
+            else if (Regex.IsMatch(cl.Code, @"crea [a-z][\w]*(\s?\([\w\W]+\))* [\w\W]+", RegexOptions.IgnoreCase))
             {
                 vc.Add(new Variable(ret[1]));
 
@@ -179,7 +175,7 @@ namespace Leggermente.Translator
             res.AddLine(Tabul(IndentLevel) + "else{", lm);
             AnalyzeCodeLines(cc);
             res.AddLine(Tabul(IndentLevel) + "}", lm);
-            return cc.Count+1;
+            return cc.Count + 1;
         }
         private void FunctionAction(CodeLine cl)
         {
@@ -193,15 +189,15 @@ namespace Leggermente.Translator
         private int SwitchAction(CodeLineCollection cc)
         {
             cc[0].Code = cc[0].Code.Trim();
-			int indx = cc[0].Code.IndexOf(' ')+1;
-			string name = cc[0].Code.Substring(indx,cc[0].Code.Length-indx);
+            int indx = cc[0].Code.IndexOf(' ') + 1;
+            string name = cc[0].Code.Substring(indx, cc[0].Code.Length - indx);
 
-			CaseAction(cc.Extractor(1),name);
+            CaseAction(cc.Extractor(1), name);
 
             return cc.Count;
         }
-		private void CaseAction(CodeLineCollection cc, string varName)
-		{
+        private void CaseAction(CodeLineCollection cc, string varName)
+        {
             if (cc != null && cc.Count > 0)
             {
                 cc[0].Code = cc[0].Code.Trim();
@@ -209,7 +205,7 @@ namespace Leggermente.Translator
                 {
                     int indx = cc[0].Code.IndexOf(' ') + 1;
 
-                    res.AddLine(Tabul(cc[0].IndentLevel) + "if(" + AnalyzeCode(varName + " " + cc[0].Code.Substring(indx, cc[0].Code.Length - indx).Trim(),cc[0].LineNumber) + "){", lm);
+                    res.AddLine(Tabul(cc[0].IndentLevel) + "if(" + AnalyzeCode(varName + " " + cc[0].Code.Substring(indx, cc[0].Code.Length - indx).Trim(), cc[0].LineNumber) + "){", lm);
 
                     CodeLineCollection sup = cc.ExtractSubIndentation(cc[0].LineNumber);
                     AnalyzeCodeLines(sup);
@@ -237,7 +233,7 @@ namespace Leggermente.Translator
                 }
                 else lm.Add("Cannot translate the line in the switch", cc[0].LineNumber);
             }
-		}
+        }
         private void ReturnAction(CodeLine cl)
         {
             cl.Code = cl.Code.Trim();
@@ -249,7 +245,7 @@ namespace Leggermente.Translator
             cc[0].Code = cc[0].Code.Trim();
             int indx = Regex.Match(cc[0].Code, "ripeti quando ", RegexOptions.IgnoreCase).Length;
 
-            res.AddLine(Tabul(cc[0].IndentLevel) + "while(" + AnalyzeCode(cc[0].Code.Substring(indx, cc[0].Code.Length - indx), cc[0].LineNumber) + "){", lm);
+            res.AddLine(Tabul(cc[0].IndentLevel) + "while(" + AnalyzeCode(cc[0].Code.Substring(indx, cc[0].Code.Length - indx).Trim(), cc[0].LineNumber) + "){", lm);
 
             AnalyzeCodeLines(cc.Extractor(1));
 
@@ -259,6 +255,47 @@ namespace Leggermente.Translator
         }
         private int ForAction(CodeLineCollection cc)
         {
+            cc[0].Code = cc[0].Code.Trim();
+            int indx = Regex.Match(cc[0].Code, @"ripeti ", RegexOptions.IgnoreCase).Length;
+            int lnght = Regex.Match(cc[0].Code, @" volte ", RegexOptions.IgnoreCase).Index;
+            string name = "indice";
+
+            if (Regex.IsMatch(cc[0].Code, @"ripeti [\w\W]+ volte [a-zA-Z][\w]*", RegexOptions.IgnoreCase))
+            {
+                int indx2 = Regex.Match(cc[0].Code, @"ripeti [\w\W]+ volte ", RegexOptions.IgnoreCase).Length;
+                name = cc[0].Code.Substring(indx2, cc[0].Code.Length - indx2);
+            }
+
+            res.AddLine(Tabul(cc[0].IndentLevel) + "for( Variable " + name + " = new (\"" + name + "\", 0) ; " + name + " < " + AnalyzeCode(cc[0].Code.Substring(indx, lnght - indx).Trim(), cc[0].LineNumber) + " ; " + name + " += (new Variable(\"_\",1)) ){", lm);
+            vc.Add(new Variable(name, ""));
+
+            AnalyzeCodeLines(cc.Extractor(1));
+
+            vc.Remove(new Variable(name, ""));
+            res.AddLine(Tabul(cc[0].IndentLevel) + "{", lm);
+
+            return cc.Count;
+        }
+        private int DoWhile(CodeLineCollection cc)
+        {
+            res.AddLine(Tabul(cc[0].IndentLevel) + "do{", lm);
+            CodeLineCollection sup = cc.ExtractSubIndentation(cc[0].LineNumber);
+            cc = cc.Extractor(sup.Count + 1);
+
+            AnalyzeCodeLines(sup);
+
+            if (Regex.IsMatch(cc[0].Code, @"quando [\w\W]+", RegexOptions.IgnoreCase))
+            {
+                if (cc.Count == 1)
+                {
+                    cc[0].Code = cc[0].Code.Trim();
+                    int indx = cc[0].Code.IndexOf(' ');
+
+                    res.AddLine(Tabul(cc[0].IndentLevel) + "}while(" + AnalyzeCode(cc[0].Code.Substring(indx, cc[0].Code.Length - indx).Trim(), cc[0].LineNumber) + ");", lm);
+                }
+                else lm.Add("Something gone wrong at this line", cc[0].LineNumber);
+            }
+            else lm.Add("The programm cannot find the 'quando' condition", cc[0].LineNumber);
             return 0;
         }
         #endregion
@@ -326,7 +363,7 @@ namespace Leggermente.Translator
             {
                 return "!" + ExpandOperator(code.Substring(m.Index + m.Value.Length, code.Length - (m.Index + m.Value.Length)), lineNumber);
             }
-            return CheckName(code);
+            return CheckName(code, lineNumber);
         }
         #endregion
 
@@ -343,13 +380,20 @@ namespace Leggermente.Translator
             return "";
         }
         #region checkName
+        public string CheckIfVector(string code)
+        {
+            if (Regex.IsMatch(code, @"[a-z][\w]*(\s?\([\w\W]+\))+", RegexOptions.IgnoreCase))
+            {
+                return "";
+            }
+            else return null;
+        }
         public string CheckVariable(string Name)
         {
-            if (Name == "(_)") return Name;
+            if (Name.Trim() == "(_)") return Name;
             for (int i = 0; i < def.Count; i++) if (def[i].Name == Name) return Name;
             for (int i = 0; i < vc.Count; i++) if (vc[i].Name == Name) return Name;
-            /*Futuro controllo Vettori*/
-            return null;
+            return CheckIfVector(Name);
         }
         public string CheckFunction(string name, int lineNumber = -1)
         {
@@ -368,7 +412,7 @@ namespace Leggermente.Translator
                                 if (pc[i].Functions[j].ParamNum == sp.Length - 1)
                                 {
                                     string r = nome[0] + "." + nome[1] + "(";
-                                    for (int x = 1; x < sp.Length; x++) r += AnalyzeCode(sp[x]) + ",";
+                                    for (int x = 1; x < sp.Length; x++) r += AnalyzeCode(sp[x], lineNumber) + ",";
                                     return ((pc[i].Functions[j].ParamNum > 0) ? r.Remove(r.Length - 1, 1) : r) + ")";
                                 }
                             }
@@ -387,7 +431,7 @@ namespace Leggermente.Translator
                         if (fc[i].ParamNum == sp.Length - 1)
                         {
                             string r = nome[0] + "(";
-                            for (int x = 1; x < sp.Length; x++) r += AnalyzeCode(sp[x]) + ",";
+                            for (int x = 1; x < sp.Length; x++) r += AnalyzeCode(sp[x], lineNumber) + ",";
                             return ((fc[i].ParamNum > 0) ? r.Remove(r.Length - 1, 1) : r) + ")";
                         }
                     }
@@ -401,7 +445,7 @@ namespace Leggermente.Translator
                         if (pc[inx].Functions[i].ParamNum == sp.Length - 1)
                         {
                             string r = nome[0] + "(";
-                            for (int x = 1; x < sp.Length; x++) r += AnalyzeCode(sp[x]) + ",";
+                            for (int x = 1; x < sp.Length; x++) r += AnalyzeCode(sp[x], lineNumber) + ",";
                             return ((pc[inx].Functions[i].ParamNum > 0) ? r.Remove(r.Length - 1, 1) : r) + ")";
                         }
                     }

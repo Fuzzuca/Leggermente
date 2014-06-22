@@ -388,7 +388,7 @@ namespace Leggermente.Translator
 
             //Tipo
             exactType = CodeElaborator.CheckIfCorrectType(RawCode, Type, lm);
-            if (!exactType) return null;
+            if (!exactType) lm.Add("The code is wrong for the current type of compilation");
 
             //Estrazione codice
             sc = SectionCollection.ExtractCollection(RawCode, lm);

@@ -144,6 +144,7 @@ namespace Leggermente.Translator
                 RawCode = Regex.Replace(RawCode, @" di ", " ", RegexOptions.IgnoreCase);    //Rimuove tutti i sinonimo
                 RawCode = Regex.Replace(RawCode, @" con ", " ", RegexOptions.IgnoreCase);    //Rimuove tutti i sinonimo
                 RawCode = Regex.Replace(RawCode, @" a ", " ", RegexOptions.IgnoreCase);    //Rimuove tutti i sinonimo
+                RawCode = Regex.Replace(RawCode, @" da ", " ", RegexOptions.IgnoreCase);    //Rimuove tutti i sinonimo
             }
             //catch (RegexMatchTimeoutException) { lm.Add("The translator was unable to remove all the Synonym in the Code"); return null; }
             catch (ArgumentOutOfRangeException) { lm.Add("The translator had try to remove all the Synonyms but something gone wrong"); return null; }
@@ -217,10 +218,10 @@ namespace Leggermente.Translator
 
             do
             {
-                m = Regex.Match(RawCode, @"[ ,\+\*\/\-]\d+([.]?\d+)?(\^?\d+)?", RegexOptions.Singleline);
+                m = Regex.Match(RawCode, @"[ ,\+\*\/\-\(]\d+([.]?\d+)?(\^?\d+)?", RegexOptions.Singleline);
                 if (m.Success && m.Length > 0)
                 {
-                    ret.Add(new Variable("_num" + indexr.ToString(), m.Value.TrimStart(' ', ',','+','-','/','*')));
+                    ret.Add(new Variable("_num" + indexr.ToString(), m.Value.TrimStart(' ', ',','+','-','/','*','(')));
                     RawCode = RawCode.Remove(m.Index + 1, m.Length - 1);
                     RawCode = RawCode.Insert(m.Index + 1, "_num" + indexr.ToString());
                     indexr++;

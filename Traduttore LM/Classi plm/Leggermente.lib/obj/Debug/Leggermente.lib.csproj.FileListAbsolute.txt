@@ -1,5 +1,0 @@
-C:\Users\Fuzzuca\Desktop\Leggermente.lib\Leggermente.lib\bin\Debug\Leggermente.lib.dll
-C:\Users\Fuzzuca\Desktop\Leggermente.lib\Leggermente.lib\bin\Debug\Leggermente.lib.pdb
-C:\Users\Fuzzuca\Desktop\Leggermente.lib\Leggermente.lib\obj\Debug\Leggermente.lib.dll
-C:\Users\Fuzzuca\Desktop\Leggermente.lib\Leggermente.lib\obj\Debug\Leggermente.lib.pdb
-C:\Users\Fuzzuca\Desktop\Leggermente.lib\Leggermente.lib\obj\Debug\Leggermente.lib.csprojResolveAssemblyReference.cache
