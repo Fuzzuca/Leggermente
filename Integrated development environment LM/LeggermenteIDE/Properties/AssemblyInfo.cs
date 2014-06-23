@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set di attributi. Per modificare le informazioni associate a un assembly
 // occorre quindi modificare i valori di questi attributi.
 [assembly: AssemblyTitle("LeggermenteIDE")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("IDE di programmazione per linguaggio Leggermente")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("LeggermenteIDE")]
@@ -17,7 +17,7 @@ using System.Runtime.InteropServices;
 // Se si imposta ComVisible su false, i tipi in questo assembly non saranno visibili 
 // ai componenti COM. Se è necessario accedere a un tipo in questo assembly da 
 // COM, impostare su true l'attributo ComVisible per tale tipo.
-[assembly: ComVisible(false)]
+[assembly: ComVisible(true)]
 
 // Se il progetto viene esposto a COM, il GUID che segue verrà utilizzato per creare l'ID della libreria dei tipi
 [assembly: Guid("2fde45d4-7af8-46cc-93c6-903d7ed49411")]

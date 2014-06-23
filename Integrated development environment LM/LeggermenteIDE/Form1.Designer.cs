@@ -81,9 +81,7 @@ namespace LeggermenteIDE
             this.coloreFontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.opzioniToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sommarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.indiceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cercaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.documentazioneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.informazionisuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SSstatus = new System.Windows.Forms.StatusStrip();
@@ -103,7 +101,6 @@ namespace LeggermenteIDE
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.listView1 = new System.Windows.Forms.ListView();
             this.TWfiles = new System.Windows.Forms.TreeView();
-            this.RTBText = new LeggermenteIDE.RichTextBoxEx();
             this.CMSRTBText = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ouToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
@@ -121,6 +118,8 @@ namespace LeggermenteIDE
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.fontDialog = new System.Windows.Forms.FontDialog();
             this.FDB = new System.Windows.Forms.FolderBrowserDialog();
+            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+            this.RTBText = new LeggermenteIDE.RichTextBoxEx();
             this.menuIcone.SuspendLayout();
             this.menuStringhe.SuspendLayout();
             this.SSstatus.SuspendLayout();
@@ -152,10 +151,11 @@ namespace LeggermenteIDE
             this.annullaToolStripButton1,
             this.ripristinaToolStripButton,
             this.toolStripSeparator8,
-            this.tsbCompila});
+            this.tsbCompila,
+            this.toolStripComboBox1});
             this.menuIcone.Location = new System.Drawing.Point(0, 24);
             this.menuIcone.Name = "menuIcone";
-            this.menuIcone.Size = new System.Drawing.Size(732, 25);
+            this.menuIcone.Size = new System.Drawing.Size(784, 25);
             this.menuIcone.TabIndex = 1;
             this.menuIcone.Text = "toolStrip1";
             // 
@@ -284,7 +284,7 @@ namespace LeggermenteIDE
             this.ToolStripMenuItem});
             this.menuStringhe.Location = new System.Drawing.Point(0, 0);
             this.menuStringhe.Name = "menuStringhe";
-            this.menuStringhe.Size = new System.Drawing.Size(732, 24);
+            this.menuStringhe.Size = new System.Drawing.Size(784, 24);
             this.menuStringhe.TabIndex = 2;
             this.menuStringhe.Text = "menuStrip1";
             // 
@@ -402,7 +402,7 @@ namespace LeggermenteIDE
             this.annullaToolStripMenuItem.Enabled = false;
             this.annullaToolStripMenuItem.Name = "annullaToolStripMenuItem";
             this.annullaToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.annullaToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.annullaToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.annullaToolStripMenuItem.Text = "&Annulla";
             this.annullaToolStripMenuItem.Click += new System.EventHandler(this.annullaToolStripMenuItem_Click);
             // 
@@ -411,14 +411,14 @@ namespace LeggermenteIDE
             this.ripristinaToolStripMenuItem.Enabled = false;
             this.ripristinaToolStripMenuItem.Name = "ripristinaToolStripMenuItem";
             this.ripristinaToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.ripristinaToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.ripristinaToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.ripristinaToolStripMenuItem.Text = "&Ripristina";
             this.ripristinaToolStripMenuItem.Click += new System.EventHandler(this.ripristinaToolStripMenuItem_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(161, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(170, 6);
             // 
             // tagliaToolStripMenuItem
             // 
@@ -426,7 +426,7 @@ namespace LeggermenteIDE
             this.tagliaToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tagliaToolStripMenuItem.Name = "tagliaToolStripMenuItem";
             this.tagliaToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.tagliaToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.tagliaToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.tagliaToolStripMenuItem.Text = "&Taglia";
             this.tagliaToolStripMenuItem.Click += new System.EventHandler(this.tagliaToolStripMenuItem_Click);
             // 
@@ -436,7 +436,7 @@ namespace LeggermenteIDE
             this.copiaToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.copiaToolStripMenuItem.Name = "copiaToolStripMenuItem";
             this.copiaToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.copiaToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.copiaToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.copiaToolStripMenuItem.Text = "&Copia";
             this.copiaToolStripMenuItem.Click += new System.EventHandler(this.copiaToolStripMenuItem_Click);
             // 
@@ -446,19 +446,19 @@ namespace LeggermenteIDE
             this.incollaToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.incollaToolStripMenuItem.Name = "incollaToolStripMenuItem";
             this.incollaToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.incollaToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.incollaToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.incollaToolStripMenuItem.Text = "&Incolla";
             this.incollaToolStripMenuItem.Click += new System.EventHandler(this.incollaToolStripMenuItem_Click);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(161, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(170, 6);
             // 
             // selezionatuttoToolStripMenuItem
             // 
             this.selezionatuttoToolStripMenuItem.Name = "selezionatuttoToolStripMenuItem";
-            this.selezionatuttoToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.selezionatuttoToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.selezionatuttoToolStripMenuItem.Text = "Seleziona &tutto";
             this.selezionatuttoToolStripMenuItem.Click += new System.EventHandler(this.selezionatuttoToolStripMenuItem_Click);
             // 
@@ -570,32 +570,19 @@ namespace LeggermenteIDE
             // ToolStripMenuItem
             // 
             this.ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sommarioToolStripMenuItem,
-            this.indiceToolStripMenuItem,
-            this.cercaToolStripMenuItem,
+            this.documentazioneToolStripMenuItem,
             this.toolStripSeparator7,
             this.informazionisuToolStripMenuItem});
             this.ToolStripMenuItem.Name = "ToolStripMenuItem";
             this.ToolStripMenuItem.Size = new System.Drawing.Size(24, 20);
             this.ToolStripMenuItem.Text = "&?";
             // 
-            // sommarioToolStripMenuItem
+            // documentazioneToolStripMenuItem
             // 
-            this.sommarioToolStripMenuItem.Name = "sommarioToolStripMenuItem";
-            this.sommarioToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
-            this.sommarioToolStripMenuItem.Text = "&Sommario";
-            // 
-            // indiceToolStripMenuItem
-            // 
-            this.indiceToolStripMenuItem.Name = "indiceToolStripMenuItem";
-            this.indiceToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
-            this.indiceToolStripMenuItem.Text = "&Indice";
-            // 
-            // cercaToolStripMenuItem
-            // 
-            this.cercaToolStripMenuItem.Name = "cercaToolStripMenuItem";
-            this.cercaToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
-            this.cercaToolStripMenuItem.Text = "&Cerca";
+            this.documentazioneToolStripMenuItem.Name = "documentazioneToolStripMenuItem";
+            this.documentazioneToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.documentazioneToolStripMenuItem.Text = "&Documentazione";
+            this.documentazioneToolStripMenuItem.Click += new System.EventHandler(this.documentazioneToolStripMenuItem_Click);
             // 
             // toolStripSeparator7
             // 
@@ -607,6 +594,7 @@ namespace LeggermenteIDE
             this.informazionisuToolStripMenuItem.Name = "informazionisuToolStripMenuItem";
             this.informazionisuToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.informazionisuToolStripMenuItem.Text = "&Informazioni su...";
+            this.informazionisuToolStripMenuItem.Click += new System.EventHandler(this.informazionisuToolStripMenuItem_Click);
             // 
             // SSstatus
             // 
@@ -614,9 +602,9 @@ namespace LeggermenteIDE
             this.StatusLabel,
             this.TSSLZoom,
             this.toolStripSplitButton1});
-            this.SSstatus.Location = new System.Drawing.Point(0, 666);
+            this.SSstatus.Location = new System.Drawing.Point(0, 540);
             this.SSstatus.Name = "SSstatus";
-            this.SSstatus.Size = new System.Drawing.Size(732, 22);
+            this.SSstatus.Size = new System.Drawing.Size(784, 22);
             this.SSstatus.TabIndex = 3;
             this.SSstatus.Text = "statusStrip1";
             // 
@@ -722,6 +710,7 @@ namespace LeggermenteIDE
             // MainSplit
             // 
             this.MainSplit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainSplit.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.MainSplit.Location = new System.Drawing.Point(0, 0);
             this.MainSplit.Name = "MainSplit";
             // 
@@ -733,9 +722,9 @@ namespace LeggermenteIDE
             // MainSplit.Panel2
             // 
             this.MainSplit.Panel2.Controls.Add(this.RTBText);
-            this.MainSplit.Size = new System.Drawing.Size(732, 486);
+            this.MainSplit.Size = new System.Drawing.Size(784, 360);
             this.MainSplit.SplitterDistance = 250;
-            this.MainSplit.SplitterWidth = 1;
+            this.MainSplit.SplitterWidth = 3;
             this.MainSplit.TabIndex = 4;
             // 
             // groupBox1
@@ -745,7 +734,7 @@ namespace LeggermenteIDE
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(250, 486);
+            this.groupBox1.Size = new System.Drawing.Size(250, 360);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Files";
@@ -755,7 +744,7 @@ namespace LeggermenteIDE
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView1.Location = new System.Drawing.Point(3, 291);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(244, 192);
+            this.listView1.Size = new System.Drawing.Size(244, 66);
             this.listView1.TabIndex = 1;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.SmallIcon;
@@ -768,31 +757,6 @@ namespace LeggermenteIDE
             this.TWfiles.Size = new System.Drawing.Size(244, 275);
             this.TWfiles.TabIndex = 0;
             this.TWfiles.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
-            // 
-            // RTBText
-            // 
-            this.RTBText.AcceptsTab = true;
-            this.RTBText.BackColor = System.Drawing.SystemColors.Desktop;
-            this.RTBText.ContextMenuStrip = this.CMSRTBText;
-            this.RTBText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RTBText.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RTBText.ForeColor = System.Drawing.SystemColors.Info;
-            this.RTBText.Location = new System.Drawing.Point(0, 0);
-            this.RTBText.Name = "RTBText";
-            this.RTBText.NumberAlignment = System.Drawing.StringAlignment.Center;
-            this.RTBText.NumberBorder = System.Drawing.Color.Empty;
-            this.RTBText.NumberBorderThickness = 1F;
-            this.RTBText.NumberColor = System.Drawing.Color.DarkGray;
-            this.RTBText.NumberFont = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RTBText.NumberLeadingZeroes = false;
-            this.RTBText.NumberLineCounting = LeggermenteIDE.RichTextBoxEx.LineCounting.CRLF;
-            this.RTBText.NumberPadding = 2;
-            this.RTBText.ShowLineNumbers = true;
-            this.RTBText.Size = new System.Drawing.Size(481, 486);
-            this.RTBText.TabIndex = 0;
-            this.RTBText.Text = "|inserisci il tuo codice qui|";
-            this.RTBText.TextChanged += new System.EventHandler(this.RTBText_TextChanged);
-            this.RTBText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RTBText_KeyPress);
             // 
             // CMSRTBText
             // 
@@ -854,7 +818,9 @@ namespace LeggermenteIDE
             // 
             // openFD
             // 
-            this.openFD.FileName = "openFileDialog1";
+            this.openFD.DefaultExt = "lm";
+            this.openFD.Filter = "Leggermente File|*.lm|Tutti i File|*.*";
+            this.openFD.RestoreDirectory = true;
             // 
             // printFD
             // 
@@ -863,6 +829,7 @@ namespace LeggermenteIDE
             // splitError
             // 
             this.splitError.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitError.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.splitError.Location = new System.Drawing.Point(0, 49);
             this.splitError.Name = "splitError";
             this.splitError.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -875,8 +842,8 @@ namespace LeggermenteIDE
             // 
             this.splitError.Panel2.Controls.Add(this.groupBox2);
             this.splitError.Panel2MinSize = 0;
-            this.splitError.Size = new System.Drawing.Size(732, 617);
-            this.splitError.SplitterDistance = 486;
+            this.splitError.Size = new System.Drawing.Size(784, 491);
+            this.splitError.SplitterDistance = 360;
             this.splitError.TabIndex = 5;
             // 
             // groupBox2
@@ -885,7 +852,7 @@ namespace LeggermenteIDE
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(732, 127);
+            this.groupBox2.Size = new System.Drawing.Size(784, 127);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Error Log";
@@ -899,21 +866,59 @@ namespace LeggermenteIDE
             this.RTBLog.Location = new System.Drawing.Point(3, 16);
             this.RTBLog.Name = "RTBLog";
             this.RTBLog.ReadOnly = true;
-            this.RTBLog.Size = new System.Drawing.Size(726, 108);
+            this.RTBLog.Size = new System.Drawing.Size(778, 108);
             this.RTBLog.TabIndex = 0;
             this.RTBLog.Text = "Nessun Errore...";
+            // 
+            // toolStripComboBox1
+            // 
+            this.toolStripComboBox1.Items.AddRange(new object[] {
+            "Programma",
+            "Pacchetto"});
+            this.toolStripComboBox1.Name = "toolStripComboBox1";
+            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 25);
+            this.toolStripComboBox1.Text = "Programma";
+            // 
+            // RTBText
+            // 
+            this.RTBText.AcceptsTab = true;
+            this.RTBText.BackColor = System.Drawing.SystemColors.Desktop;
+            this.RTBText.ContextMenuStrip = this.CMSRTBText;
+            this.RTBText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RTBText.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RTBText.ForeColor = System.Drawing.SystemColors.Info;
+            this.RTBText.Location = new System.Drawing.Point(0, 0);
+            this.RTBText.Name = "RTBText";
+            this.RTBText.NumberAlignment = System.Drawing.StringAlignment.Center;
+            this.RTBText.NumberBorder = System.Drawing.Color.Empty;
+            this.RTBText.NumberBorderThickness = 1F;
+            this.RTBText.NumberColor = System.Drawing.Color.DarkGray;
+            this.RTBText.NumberFont = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RTBText.NumberLeadingZeroes = false;
+            this.RTBText.NumberLineCounting = LeggermenteIDE.RichTextBoxEx.LineCounting.CRLF;
+            this.RTBText.NumberPadding = 2;
+            this.RTBText.ShowLineNumbers = true;
+            this.RTBText.Size = new System.Drawing.Size(531, 360);
+            this.RTBText.TabIndex = 0;
+            this.RTBText.Text = "|inserisci il tuo codice qui|";
+            this.RTBText.TextChanged += new System.EventHandler(this.RTBText_TextChanged);
+            this.RTBText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RTBText_KeyPress);
             // 
             // FormBase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(732, 688);
+            this.ClientSize = new System.Drawing.Size(784, 562);
             this.Controls.Add(this.splitError);
             this.Controls.Add(this.SSstatus);
             this.Controls.Add(this.menuIcone);
             this.Controls.Add(this.menuStringhe);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStringhe;
             this.Name = "FormBase";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Leggermete IDE";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormBase_FormClosing);
             this.menuIcone.ResumeLayout(false);
             this.menuIcone.PerformLayout();
@@ -1031,9 +1036,6 @@ namespace LeggermenteIDE
         private System.Windows.Forms.ToolStripMenuItem visualizzaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fileExplorerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sommarioToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem indiceToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cercaToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripMenuItem informazionisuToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitError;
@@ -1064,6 +1066,8 @@ namespace LeggermenteIDE
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
         private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ToolStripMenuItem documentazioneToolStripMenuItem;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
     }
 }
 

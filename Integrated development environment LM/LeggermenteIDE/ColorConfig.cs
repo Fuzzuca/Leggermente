@@ -53,7 +53,7 @@ namespace LeggermenteIDE
                 string[] values;
 
                 for (int i = 0; i < PreConfig.Length; i++)
-                    if (PreConfig[i] != "")
+                    if (!string.IsNullOrWhiteSpace(PreConfig[i]))
                         if (!(PreConfig[i][0] == '#' || char.IsWhiteSpace(PreConfig[i], 0)))
                         {
                             bool isrex = false;
@@ -65,7 +65,7 @@ namespace LeggermenteIDE
                             values = PreConfig[i].Split('=', ';');
                             int red, green, blue, Rexop;
                             string value;
-                            value = values[0].Trim();
+                            value = values[0];
                             if (int.TryParse(values[1].Trim(), out red) &&
                                 int.TryParse(values[2].Trim(), out green) &&
                                 int.TryParse(values[3].Trim(), out blue))
@@ -107,7 +107,7 @@ namespace LeggermenteIDE
                 {
                     foreach (Match m in Collections)
                     {
-                        if (i.Value.ToLower() == m.ToString().Trim().ToLower())     //guardo se la parola corrisponde
+                        if (i.Value.ToLower() == m.ToString().Trim().ToLower()+" ")     //guardo se la parola corrisponde
                         {
                             rtb.Select(m.Index, m.Length);                          //seleziono la parola
                             rtb.SelectionColor = i.color;                           //coloro

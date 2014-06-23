@@ -20,7 +20,7 @@ namespace LeggermenteIDE
             InitializeComponent();
             ApplicaConfigurazioni();
             size = RTBText.Font.Size;
-            FormFunctions.PopulateTreeView(TWfiles,FileName);
+            FormFunctions.PopulateTreeView(TWfiles, FileName);
         }
 
         #region Variabili Private
@@ -33,37 +33,46 @@ namespace LeggermenteIDE
         private int ErrorConsoleSize;
         private string FileName;
         List<ColorConfig> color;
+        Stack<string> undoList = new Stack<string>();
+        Stack<string> redoList = new Stack<string>();
 
         #endregion
 
-
         #region Gestione Eventi Form
 
-        #region Gestione Menù
+            #region Gestione Menù
 
-        #region Menù File
+                #region Menù File
 
         private void nuovoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
-                FormFunctions.ControlloInChiusura(flag_modified,RTBText,FileName,flag_saved);
+                FormFunctions.ControlloInChiusura(ref flag_modified, RTBText, ref FileName, ref flag_saved);
             }
             catch (OperationCanceledException) { return; };
             flag_modified = false;
             flag_saved = false;
-            RTBText.Text = "|Scrivi il tuo codice qui|";
+
+            undoList.Clear();
+            redoList.Clear();
+            //RTBText.Text = "|Scrivi il tuo codice qui|";
         }
 
         private void salvaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormFunctions.Salva(RTBText.Lines,FileName,flag_saved);
+            if (FormFunctions.Salva(RTBText.Lines, ref FileName, ref flag_saved))
+            {
+                undoList.Clear();
+                redoList.Clear();
+            }
+            FormFunctions.PopulateTreeView(TWfiles, FileName);
         }
 
         private void salvaconnomeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             flag_saved = false;
-            FormFunctions.Salva(RTBText.Lines, FileName, flag_saved);
+            salvaToolStripMenuItem_Click(sender, e);
         }
 
         private void esciToolStripMenuItem_Click(object sender, EventArgs e)
@@ -78,10 +87,10 @@ namespace LeggermenteIDE
 
                 try
                 {
-                    FormFunctions.ControlloInChiusura(flag_modified, RTBText, FileName, flag_saved);
+                    FormFunctions.ControlloInChiusura(ref flag_modified, RTBText, ref FileName, ref flag_saved);
                     RTBText.Lines = File.ReadAllLines(openFD.FileName);
                     FileName = openFD.FileName;
-                    FormFunctions.PopulateTreeView(TWfiles,FileName);
+                    FormFunctions.PopulateTreeView(TWfiles, FileName);
                 }
                 #region Catches
                 catch (OperationCanceledException) { return; }
@@ -100,7 +109,8 @@ namespace LeggermenteIDE
             }
             flag_saved = true;
             flag_modified = false;
-
+            undoList.Clear();
+            redoList.Clear();
         }
 
         private void stampaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -150,7 +160,7 @@ namespace LeggermenteIDE
 
         #endregion
 
-        #region Menù Visualizza
+                #region Menù Visualizza
 
         private void fileExplorerToolStripMenuItem_CheckStateChanged(object sender, EventArgs e)
         {
@@ -184,7 +194,7 @@ namespace LeggermenteIDE
 
         #endregion
 
-        #region Menù Modifica
+                #region Menù Modifica
 
         private void selezionatuttoToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -193,17 +203,36 @@ namespace LeggermenteIDE
 
         private void annullaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RTBText.Undo();
-            ripristinaToolStripMenuItem.Enabled = true;
-            if (!RTBText.CanUndo)
+            if (undoList.Count > 0)
+            {
+                RTBText.Text = undoList.Pop();
+                RTBText.ForeColor = Color.White;
+                ColorConfig.ColoraTesto(RTBText, color);
+                redoList.Push(RTBText.Text);
+                ripristinaToolStripButton.Enabled = true;
+                ripristinaToolStripMenuItem.Enabled = true;
+            }
+            else
+            {
+                annullaToolStripButton1.Enabled = false;
                 annullaToolStripMenuItem.Enabled = false;
+            }
         }
 
         private void ripristinaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RTBText.Redo();
-            if (!RTBText.CanRedo)
+            if (redoList.Count > 0)
+            {
+                RTBText.Text = redoList.Pop();
+                RTBText.ForeColor = Color.White;
+                ColorConfig.ColoraTesto(RTBText, color);
+            }
+            else
+            {
                 ripristinaToolStripMenuItem.Enabled = false;
+                ripristinaToolStripButton.Enabled = false;
+            }
+
         }
 
         private void tagliaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -226,7 +255,7 @@ namespace LeggermenteIDE
 
         #endregion
 
-        #region Menù Strumenti
+                #region Menù Strumenti
 
         #region Personalizza
 
@@ -247,8 +276,8 @@ namespace LeggermenteIDE
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 RTBText.Font = fontDialog.Font;
-                string[] load = File.ReadAllLines(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)+@"\Leggermente\FormConfig.lmc");
-                load[6] = "FontFamily="+fontDialog.Font.Name+";"+fontDialog.Font.Size.ToString();
+                string[] load = File.ReadAllLines(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Leggermente\FormConfig.lmc");
+                load[6] = "FontFamily=" + fontDialog.Font.Name + ";" + fontDialog.Font.Size.ToString();
                 File.WriteAllLines(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Leggermente\FormConfig.lmc", load);
             }
         }
@@ -271,68 +300,95 @@ namespace LeggermenteIDE
 
         private void tsbCompila_Click(object sender, EventArgs e)
         {
-            if (flag_saved == false || flag_modified == true)
-                FormFunctions.Salva(RTBText.Lines, FileName, flag_saved);
-            LogManager errori = new LogManager();
-            Translator traduttore = new Translator(errori);
-            string[] pacccccccchetttttttu;
-            string rex = "aggiungi";
-            MatchCollection matches = Regex.Matches(RTBText.Text, rex);
-            int j = 0;
-            pacccccccchetttttttu = new string[matches.Count+1];
-            foreach (Match i in matches)
+
+            string [] errori;
+            if (FormFunctions.Salva(RTBText.Lines, ref FileName, ref flag_saved))
             {
-                int index = i.Index+i.Length;
-                string line = RTBText.Lines[RTBText.GetLineFromCharIndex(index)];
-                RTBText.Select(index, line.Length - i.Length);
-                pacccccccchetttttttu[j] = "./" + RTBText.SelectedText.Trim() + ".lmp";
-                j++;
+                undoList.Clear();
+                redoList.Clear();
             }
-            pacccccccchetttttttu[j] = "./LEGGERMENTE.lmp";
-
-            ResultCode risultato = traduttore.Translate(CodeType.Program, RTBText.Text, pacccccccchetttttttu, "./result.exe");
-            if (!errori.WithOutError) RTBLog.Lines = errori.LogList;
-            else MessageBox.Show(risultato.ToString());
+            FormFunctions.PopulateTreeView(TWfiles, FileName);
+            if (flag_saved)
+            {
+                if (sender == tsbCompila)
+                {
+                    if (toolStripComboBox1.SelectedIndex == 0)
+                    {
+                        if (!FormFunctions.CompilaProgramma(RTBText, FileName, out errori))
+                        {
+                            RTBLog.Lines = errori;
+                            errorConsoleToolStripMenuItem.Checked = true;
+                        }
+                    }
+                    else
+                    {
+                        if (!FormFunctions.CompilaPacchetto(RTBText, FileName, out errori))
+                        {
+                            RTBLog.Lines = errori;
+                            errorConsoleToolStripMenuItem.Checked = true;
+                        }
+                    }
+                }
+                else
+                {
+                    if (!FormFunctions.CompilaProgramma(RTBText, FileName, out errori))
+                    {
+                        RTBLog.Lines = errori;
+                        errorConsoleToolStripMenuItem.Checked = true;
+                    }
+                }
+            }
         }
-
 
         private void pacchettoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LogManager errori = new LogManager();
-            Translator traduttore = new Translator(errori);
-            string[] pacccccccchetttttttu;
-            string rex = "aggiungi";
-            MatchCollection matches = Regex.Matches(RTBText.Text, rex);
-            int j = 0;
-            pacccccccchetttttttu = new string[matches.Count + 1];
-            foreach (Match i in matches)
-            {
-                int index = i.Index + i.Length;
-                string line = RTBText.Lines[RTBText.GetLineFromCharIndex(index)];
-                RTBText.Select(index, line.Length - i.Length);
-                pacccccccchetttttttu[j] = "./" + RTBText.SelectedText.Trim() + ".lmp";
-                j++;
-            }
-            pacccccccchetttttttu[j] = "./LEGGERMENTE.lmp";
 
-            ResultCode risultato = traduttore.Translate(CodeType.Package, RTBText.Text, pacccccccchetttttttu, "./result.lmp");
-            if (!errori.WithOutError) RTBLog.Lines = errori.LogList;
-            else MessageBox.Show(risultato.ToString());
+            string[] errori;
+            if (FormFunctions.Salva(RTBText.Lines, ref FileName, ref flag_saved))
+            {
+                undoList.Clear();
+                redoList.Clear();
+            }
+            FormFunctions.PopulateTreeView(TWfiles, FileName);
+            if (flag_saved)
+            {
+                if (FormFunctions.CompilaPacchetto(RTBText, FileName, out errori))
+                {
+                    RTBLog.Lines = errori;
+                    errorConsoleToolStripMenuItem.Checked = true;
+                }
+            }
         }
 
         #endregion
 
         #endregion
 
+                #region Menù ?
+
+        private void informazionisuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutUs sup = new AboutUs();
+            this.AddOwnedForm(sup);
+            sup.ShowDialog();
+        }
+
+        private void documentazioneToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/Fuzzuca/Leggermente");
+        }
+
         #endregion
 
-        #region Eventi
+        #endregion
+
+            #region Eventi
 
         private void FormBase_FormClosing(object sender, FormClosingEventArgs e)
         {
             try
             {
-                FormFunctions.ControlloInChiusura(flag_modified, RTBText, FileName, flag_saved);
+                FormFunctions.ControlloInChiusura(ref flag_modified, RTBText, ref FileName, ref flag_saved);
             }
             catch (OperationCanceledException) { e.Cancel = true; }
         }//chiusura form
@@ -340,26 +396,20 @@ namespace LeggermenteIDE
         private void RTBText_TextChanged(object sender, EventArgs e)
         {
             RefreshControl.SuspendDrawing(MainSplit);
-            ColorConfig.ColoraTesto(RTBText,color);
+            ColorConfig.ColoraTesto(RTBText, color);
 
 
             if (RTBText.TextLength == 0)
                 RTBText.ForeColor = Color.White;
+            else 
+            if (RTBText.Text[RTBText.TextLength-1] == ' ')
+                undoList.Push(RTBText.Text.Trim());
 
-
-            //controllo del focus per gestione ottimale undo / redo
-            char last = (RTBText.Text.Length > 2)?RTBText.Text[RTBText.Text.Length - 1]:' '; 
-            char _last = (RTBText.Text.Length > 2)?RTBText.Text[RTBText.Text.Length - 2]:' ';
-            char enter = '\n';
-
-            if ((last == ' ' || last == enter) && last != _last) 
+            if (undoList.Count > 0)
             {
-                this.Focus();
-                RTBText.Focus();
-            }
-            if (!annullaToolStripMenuItem.Enabled) //attivo il bottone annulla
+                annullaToolStripButton1.Enabled = true;
                 annullaToolStripMenuItem.Enabled = true;
-
+            }
 
             if (!flag_modified)
             {
@@ -386,18 +436,18 @@ namespace LeggermenteIDE
         {
             if (e.KeyChar == '\t')
             {
-                RTBText.SelectedText =  "   ";
+                RTBText.SelectedText = "   ";
                 RTBText.HideSelection = true;
                 e.KeyChar = ' ';
             }
             if (e.KeyChar == '\n' || e.KeyChar == '\r')
             {
                 RefreshControl.SuspendDrawing(MainSplit);
-                string line = RTBText.Lines[RTBText.GetLineFromCharIndex(RTBText.SelectionStart)-1];
+                string line = RTBText.Lines[RTBText.GetLineFromCharIndex(RTBText.SelectionStart) - 1];
                 int lineln = line.Length;
                 line = line.Trim(' ');
                 int _lineln = line.Length;
-                int tabs = (lineln - _lineln)/4;
+                int tabs = (lineln - _lineln) / 4;
                 for (int i = 0; i < tabs; i++)
                 {
                     RTBText.SelectedText = "    ";
@@ -407,7 +457,7 @@ namespace LeggermenteIDE
             }
         }
 
-        void treeView1_NodeMouseClick(object sender,TreeNodeMouseClickEventArgs e)
+        void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             TreeNode newSelected = e.Node;
             listView1.Items.Clear();
@@ -439,9 +489,10 @@ namespace LeggermenteIDE
 
             listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
-
+        
         #endregion
 
         #endregion
+
     }
 }

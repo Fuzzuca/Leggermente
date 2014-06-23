@@ -4,13 +4,17 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Drawing;
+using Leggermente.Translator;
+using System.Text.RegularExpressions;
 
 namespace LeggermenteIDE
 {
     class FormFunctions
     {
 
-        public static bool Salva(string[] lines, string FileName, bool flag_saved)
+        #region Gestione Salvataggio
+
+        public static bool Salva(string[] lines, ref string FileName, ref bool flag_saved)
         {
             if (lines == null)              //controllo il contenuto
                 return false;
@@ -19,6 +23,9 @@ namespace LeggermenteIDE
             else                            // altrimenti chiedo dove salvare
             {
                 SaveFileDialog saveFD = new SaveFileDialog();
+                saveFD.DefaultExt = "lm";
+                saveFD.Filter = "Leggermente File|*.lm|Tutti i File|*.*";
+                saveFD.RestoreDirectory = true;
                 if (saveFD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
 
@@ -28,10 +35,10 @@ namespace LeggermenteIDE
                     {
                         FileName = saveFD.FileName; //designo il FileName
                     }
+                    flag_saved = true;  //imposto come Salvato
                     return ret;
                 }
-                MessageBox.Show("Salvataggio Annullato");
-                flag_saved = true;          //imposto come Salvato
+                        
                 return false;
             }
         }
@@ -49,7 +56,7 @@ namespace LeggermenteIDE
             {
                 bool flag_saved = false;
                 if (MessageBox.Show("La Cartella Desisderata Non Esiste.\nVuoi Salvare altrove?", "Exception Found", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    Salva(lines, FileName, flag_saved);
+                    Salva(lines, ref FileName, ref flag_saved);
                 return false;
             }
             //se l'accesso è negato
@@ -63,7 +70,7 @@ namespace LeggermenteIDE
             return true;
         }
 
-        public static void ControlloInChiusura(bool flag_modified, RichTextBoxEx RTBText, string FileName, bool flag_saved)
+        public static void ControlloInChiusura(ref bool flag_modified, RichTextBoxEx RTBText,ref  string FileName,ref  bool flag_saved)
         {
             if (flag_modified)
             {
@@ -71,7 +78,7 @@ namespace LeggermenteIDE
                 mboxres = MessageBox.Show("Vuoi Salvare?", "File non Salvato", MessageBoxButtons.YesNoCancel);
                 if (mboxres == System.Windows.Forms.DialogResult.Yes)
                 {
-                    Salva(RTBText.Lines,FileName, flag_saved);
+                    Salva(RTBText.Lines, ref FileName, ref flag_saved);
                 }
                 else if (mboxres == System.Windows.Forms.DialogResult.Cancel)
                 {
@@ -80,7 +87,7 @@ namespace LeggermenteIDE
             }
         }
 
-
+        #endregion
 
         public static string GetPathByFileName(string FileName)
         {
@@ -97,6 +104,78 @@ namespace LeggermenteIDE
             }
             else return null;
         }
+
+        #region Compilazione
+
+        public static bool CompilaPacchetto(RichTextBoxEx RTBText, string FileName, out string[] errors)
+        {
+            LogManager errori = new LogManager();
+            Translator traduttore = new Translator(errori);
+            string[] pacccccccchetttttttu;
+            string rex = "aggiungi";
+            MatchCollection matches = Regex.Matches(RTBText.Text, rex);
+            int j = 0;
+            pacccccccchetttttttu = new string[matches.Count + 1];
+            foreach (Match i in matches)
+            {
+                int index = i.Index + i.Length;
+                string line = RTBText.Lines[RTBText.GetLineFromCharIndex(index)];
+                RTBText.Select(index, line.Length - i.Length);
+                string res = RTBText.SelectedText.Trim();
+                if (!string.IsNullOrWhiteSpace(res))
+                    pacccccccchetttttttu[j] = FormFunctions.GetPathByFileName(FileName) + "/" + res + ".lmp";
+                else
+                    pacccccccchetttttttu[j] = "";
+                j++;
+            }
+            pacccccccchetttttttu[j] = "./LEGGERMENTE.lmp";
+
+            ResultCode risultato = traduttore.Translate(CodeType.Package, RTBText.Text, pacccccccchetttttttu, "./result.lmp");
+            if (!errori.WithOutError)
+            {
+                errors = errori.LogList;
+                return false;
+            }
+            errors = null;
+            return true;
+        }
+
+        public static bool CompilaProgramma(RichTextBoxEx RTBText, string FileName, out string[] errors)
+        {
+            LogManager errori = new LogManager();
+            Translator traduttore = new Translator(errori);
+            string[] pacccccccchetttttttu;
+            string rex = "aggiungi";
+            MatchCollection matches = Regex.Matches(RTBText.Text, rex);
+            int j = 0;
+            pacccccccchetttttttu = new string[matches.Count + 1];
+            foreach (Match i in matches)
+            {
+                int index = i.Index + i.Length;
+                string line = RTBText.Lines[RTBText.GetLineFromCharIndex(index)];
+                RTBText.Select(index, line.Length - i.Length);
+                string res = RTBText.SelectedText.Trim();
+                if (!string.IsNullOrWhiteSpace(res))
+                    pacccccccchetttttttu[j] = FormFunctions.GetPathByFileName(FileName) + "/" + res + ".lmp";
+                else
+                    pacccccccchetttttttu[j] = "";
+                j++;
+            }
+            pacccccccchetttttttu[j] = "./LEGGERMENTE.lmp";
+
+            ResultCode risultato = traduttore.Translate(CodeType.Program, RTBText.Text, pacccccccchetttttttu, FormFunctions.GetPathByFileName(FileName) + "/result.cs");
+            if (!errori.WithOutError)
+            {
+                errors = errori.LogList;
+                return false;
+            }
+            errors = null;
+            return true;
+        }
+
+        #endregion
+
+        #region Gestione TreeWiew
 
         public static void PopulateTreeView(TreeView TWfiles, string FileName)
         {
@@ -149,5 +228,6 @@ namespace LeggermenteIDE
             }
         }
 
+        #endregion
     }
 }
