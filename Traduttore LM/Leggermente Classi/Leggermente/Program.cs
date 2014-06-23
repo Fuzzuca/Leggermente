@@ -25,7 +25,7 @@ namespace Leggermente
 
 
 
-            ResultCode result = traduttore.Translate(CodeType.Program, file, package, "");
+            ResultCode result = traduttore.Translate(CodeType.Package, file, package, "./prova.cs");
 
             Directory.Delete("./temp", true);
             if (traduttore.ErrorManager.WithOutError) Console.Write(result.ToString());

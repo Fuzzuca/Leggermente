@@ -310,6 +310,7 @@ namespace Leggermente.Translator
         private SectionCollection _sc;  
         private PackageCollection _pc;
         private CodeType _type;
+        private string _packname;
 
         //Costruttore
         /// <summary>
@@ -318,12 +319,13 @@ namespace Leggermente.Translator
         /// <param name="sc">Sezioni di codice</param>
         /// <param name="pc">Pacchetti richiamati</param>
         /// <param name="type">Tipo di codice</param>
-        private CodeImage(SectionCollection sc, PackageCollection pc, VariableCollection vc, CodeType type)
+        private CodeImage(SectionCollection sc, PackageCollection pc, VariableCollection vc, CodeType type,string packname=null)
         {
             this._const = vc;
             this._sc = sc;
             this._pc = pc;
             this._type = type;
+            this._packname = packname;
         }
 
         //Proprietà
@@ -355,6 +357,13 @@ namespace Leggermente.Translator
         {
             get { return _type; }
         }
+        /// <summary>
+        /// Tipo di codice
+        /// </summary>
+        public string PackageName
+        {
+            get { return _packname; }
+        }
 
         //Metodo statico
         /// <summary>
@@ -373,6 +382,7 @@ namespace Leggermente.Translator
             VariableCollection vc;//Costanti 
             PackageCollection pc; //Pacchetti inclusi
             bool exactType = false;
+            string PackName = null;
 
             //Pulizia
             RawCode = CodeCleaner.TextReturnUnified(RawCode, lm);
@@ -399,11 +409,11 @@ namespace Leggermente.Translator
             //Creazione aggiunta per pacchetti
             if (Type == CodeType.Package)
             {
-                string nome = CodeElaborator.PackegeNameExtractor(RawCode, lm);
+                PackName = CodeElaborator.PackegeNameExtractor(RawCode, lm);
                 RawCode = CodeElaborator.RemovePackageName(RawCode, lm);
             }
 
-            return new CodeImage(sc, pc, vc, Type);
+            return (Type == CodeType.Program) ? new CodeImage(sc, pc, vc, Type) : new CodeImage(sc, pc, vc, Type, PackName);
         }
     }
 
@@ -420,10 +430,10 @@ namespace Leggermente.Translator
         /// <summary>
         /// Codice risultante della traduzione
         /// </summary>
-        public ResultCode()
+        public ResultCode(string Path)
         {
             codes = new List<string>();
-            filename = "";
+            filename = Path;
             IncludesStandard();
         }
 
@@ -446,7 +456,7 @@ namespace Leggermente.Translator
         /// <param name="lm">Gestore dei messaggi</param>
         private void AddGenericPack(string NamePackage, LogManager lm)
         {
-            if (!string.IsNullOrWhiteSpace(NamePackage)) codes.Add("include " + NamePackage + ";");
+            if (!string.IsNullOrWhiteSpace(NamePackage)) codes.Add("using " + NamePackage + ";");
             else lm.Add("The Translator cannot insert a package in the code");
         }
 

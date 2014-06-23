@@ -52,7 +52,7 @@ namespace Leggermente.Translator
         {
             PackageCollection pc = PackageCollection.LoadPackageByFile(PackagesPath, lm);
             CodeImage code = CodeImage.CreateCodeImage(Code, pc, type, lm);
-            ResultCode result = new ResultCode();
+            ResultCode result = new ResultCode(ExoprtPath);
 
             if (lm.WithOutError)
             {
@@ -63,13 +63,17 @@ namespace Leggermente.Translator
                 else code.Package.Add(pc[general]);
 
                 result.AddBlankLine();
-                result.AddLine("namespace Leggermente.Programma{ class Program{", lm);
+
+                if (code.Type == CodeType.Program) result.AddLine("namespace Leggermente.Programma{ class Program{", lm);
+                else result.AddLine("namespace Leggermente.lib." + code.PackageName + "{ class " + code.PackageName + "{", lm);
 
                 WriteConstant(code, result);
                 if (lm.WithOutError) Parsing(code, result);
 
                 result.AddBlankLine();
                 result.AddLine("} }", lm);
+
+                WriteCsDocumets(result);
             }
             return result;
         }
@@ -81,6 +85,7 @@ namespace Leggermente.Translator
             for (int i = 0; i < ci.Section.Count; i++) fc.Add(ci.Section[i].Function);
 
             ParserFunction parser = new ParserFunction(ci.Constant, fc, ci.Package, res, lm);
+            if (ci.Type == CodeType.Package) WritePackageFile(ci.PackageName, fc, res.FileName);
 
             for (int i = 0; i < ci.Section.Count; i++) parser.AnalyzeFunction(ci.Section[i]);
         }
@@ -95,6 +100,27 @@ namespace Leggermente.Translator
                 res.AddLine("static const int " + vc[i].Name + " = new Variable(" + vc[i].Name + ", " + vc[i].Value + ");", lm);
             }
             res.AddBlankLine();
+        }
+
+        public void WritePackageFile(string Name, FunctionCollection fc, string Path)
+        {
+            int lindx = Path.LastIndexOf(@"\");
+            if (lindx < 0) lindx = Path.LastIndexOf("/");
+
+            Package p = new Package(Name, fc);
+            if (!Package.SalvaFile(p, Path.Substring(0, lindx + 1) + "lib.bin"))
+            {
+                lm.Add("Cannot write the package descriptor file");
+            }
+        }
+
+        public void WriteCsDocumets(ResultCode rc)
+        {
+            try
+            {
+                File.WriteAllLines(rc.FileName, rc.Codes);
+            }
+            catch (Exception) { lm.Add("Cannot write the output file"); }
         }
     }
 }

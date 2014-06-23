@@ -304,7 +304,7 @@ namespace Leggermente.Translator
                 find = false;
                 for (int j = 0; j < this.Count; j++)
                 {
-                    if (this[j].Name == ListInclude[i])
+                    if (this[j].Name.Trim() == ListInclude[i].Trim())
                     {
                         find = true;
                         if (pc.Exist(this[j])) lm.Add("The package '" + ListInclude[i] + "' was alredy added", LogType.Warning);

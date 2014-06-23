@@ -72,12 +72,12 @@ namespace Leggermente.Translator
         {
             if (cc != null && cc.Count > 0)
             {
-                if (Regex.IsMatch(cc[0].Code, @"crea (vettore )?[a-z][\w]*(\s?\([\w\W]+\))* [\w\W]+", RegexOptions.IgnoreCase))
+                if (Regex.IsMatch(cc[0].Code, @"crea (vettore )?[a-z][\w]*(\s?\{[\w\W]+\})* [\w\W]+", RegexOptions.IgnoreCase))
                 {
                     CreateVariable(cc[0]);
                     AnalyzeCodeLines(cc.Extractor(1));
                 }
-                else if (Regex.IsMatch(cc[0].Code, @"cambia [a-z][\w]*(\s?\([\w\W]+\))* [\w\W]+", RegexOptions.IgnoreCase))
+                else if (Regex.IsMatch(cc[0].Code, @"cambia [a-z][\w]*(\s?\{[\w\W]+\})* [\w\W]+", RegexOptions.IgnoreCase))
                 {
                     ChangeVariable(cc[0]);
                     AnalyzeCodeLines(cc.Extractor(1));
@@ -129,14 +129,14 @@ namespace Leggermente.Translator
             string[] ret = cl.Code.Split(' ');
             string code = cl.Code;
 
-            if (Regex.IsMatch(cl.Code, @"crea vettore [a-z][\w]*(\s?\([\w\W]+\))* [\w\W]+", RegexOptions.IgnoreCase))
+            if (Regex.IsMatch(cl.Code, @"crea vettore [a-z][\w]*(\s?\{[\w\W]+\})* [\w\W]+", RegexOptions.IgnoreCase))
             {
                 vc.Add(new Variable(ret[2], 0));
 
                 code = code.Remove(0, ret[0].Length + ret[1].Length + ret[2].Length + 2).Trim();
                 res.AddLine(Tabul(cl.IndentLevel) + "Variable " + ret[2] + " = new Variable(\"" + ret[2] + "\"," + AnalyzeCode(code, cl.LineNumber) + ");", lm);
             }
-            else if (Regex.IsMatch(cl.Code, @"crea [a-z][\w]*(\s?\([\w\W]+\))* [\w\W]+", RegexOptions.IgnoreCase))
+            else if (Regex.IsMatch(cl.Code, @"crea [a-z][\w]*(\s?\{[\w\W]+\})* [\w\W]+", RegexOptions.IgnoreCase))
             {
                 vc.Add(new Variable(ret[1]));
 
@@ -152,9 +152,10 @@ namespace Leggermente.Translator
         {
             cl.Code = cl.Code.Trim();
             string[] sp = cl.Code.Split(' ');
-            if (CheckVariable(sp[1]) != null)
+            string sup = CheckVariable(sp[1]);
+            if (sup != null)
             {
-                res.AddLine(Tabul(cl.IndentLevel) + sp[1] + ".ChangeValue(" + AnalyzeCode(cl.Code.Substring(sp[0].Length + 1 + sp[1].Length, cl.Code.Length - (sp[0].Length + 1 + sp[1].Length)).Trim(), cl.LineNumber) + ".ToString());", lm);
+                res.AddLine(Tabul(cl.IndentLevel) + sup + ".ChangeValue(" + AnalyzeCode(cl.Code.Substring(sp[0].Length + 1 + sp[1].Length, cl.Code.Length - (sp[0].Length + 1 + sp[1].Length)).Trim(), cl.LineNumber) + ".ToString());", lm);
             }
             else lm.Add("The variable '" + sp[1] + "' not exist", cl.LineNumber);
         }
@@ -380,11 +381,25 @@ namespace Leggermente.Translator
             return "";
         }
         #region checkName
-        public string CheckIfVector(string code)
+        public string CheckIfVector(string code,int lineNumber = -1)
         {
-            if (Regex.IsMatch(code, @"[a-z][\w]*(\s?\([\w\W]+\))+", RegexOptions.IgnoreCase))
+            if (Regex.IsMatch(code, @"[\w\W]+(\s?\{[\w\W]+\})+", RegexOptions.IgnoreCase))
             {
-                return "";
+                int indx = code.IndexOf('{');
+                MatchCollection mc = Regex.Matches(code, @"\{[\w\W]+\}", RegexOptions.IgnoreCase);
+
+                string name = CheckName(code.Substring(0, indx).Trim(), lineNumber);
+
+                if (name == null) { lm.Add("The name for the vector '" + name + "' not exist", lineNumber); return null; }
+                foreach (Match m in mc)
+                {
+                    string test = m.Value.Trim(' ', '{', '}');
+                    test = CheckName(test, lineNumber);
+                    if (test == null) { lm.Add("The parameter " + m.Value + " for the vector " + name + " not exist", lineNumber); return null; }
+                }
+
+                return Regex.Match(code, @"[\w\W]+(\s?\{[\w\W]+\})+", RegexOptions.IgnoreCase).Value.Replace('{', '[').Replace('}', ']');
+
             }
             else return null;
         }
